@@ -12,7 +12,7 @@ class OpenAI
     public function __construct(
         protected string $apiKey,
         protected string $model = GPTModels::GPT3_16K->value,
-        protected float $temperature = 0.2,
+        protected float $temperature = 0,
         protected int $maxTokens = 196
     ) {
     }
