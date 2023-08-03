@@ -55,7 +55,13 @@ class Commit extends Command
             throw new ProcessFailedException($process);
         }
 
-        return $process->getOutput();
+        $output = $process->getOutput();
+
+        if ($output === '') {
+            throw new \Exception('There are no changes yet!');
+        }
+
+        return $output;
     }
 
     /**
