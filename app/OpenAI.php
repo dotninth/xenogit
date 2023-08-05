@@ -9,6 +9,14 @@ class OpenAI
 {
     protected const API_URL = 'https://api.openai.com/v1/chat/completions';
 
+    /**
+     * Constructor for the class.
+     *
+     * @param string $apiKey      the API key
+     * @param string $model       the model to use (default: GPT3_16K)
+     * @param float  $temperature the temperature (default: 0)
+     * @param int    $maxTokens   the maximum number of tokens (default: 196)
+     */
     public function __construct(
         protected string $apiKey,
         protected string $model = GPTModels::GPT3_16K->value,
@@ -17,6 +25,15 @@ class OpenAI
     ) {
     }
 
+    /**
+     * Sends a POST request to the OpenAI API to complete the given messages.
+     *
+     * @param array $messages the array of messages to be completed
+     *
+     * @return string the completed message content
+     *
+     * @throws Exception if an error occurs during the HTTP request
+     */
     public function complete(array $messages): string
     {
         $response = Http::withToken(
@@ -29,6 +46,13 @@ class OpenAI
         return $response['choices'][0]['message']['content'];
     }
 
+    /**
+     * Prepares the data for the given messages.
+     *
+     * @param array $messages the array of messages
+     *
+     * @return array the prepared data
+     */
     protected function prepareData(array $messages): array
     {
         return [
