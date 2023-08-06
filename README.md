@@ -21,10 +21,6 @@
 `Xenogit` is your helpful command-line assistant that uses [OpenAI](https://openai.com/) GPT to quickly create commit messages that follow the [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) specification. Stop spending time writing commits and start managing your Git repository effortlessly!
 
 ## ️Getting Started
-
-### Prerequisites
-To run the project, you need to install [PHP](https://www.php.net/manual/en/install.php) and dependency manager [Composer](https://getcomposer.org) first.
-
 ### Installing
 There are two ways to install Xenogit:
 
