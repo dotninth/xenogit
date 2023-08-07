@@ -1,18 +1,72 @@
-diff --git a/src/server.ts b/src/server.ts
-index ad4db42..f3b18a9 100644
---- a/src/server.ts
-+++ b/src/server.ts
-@@ -10,7 +10,7 @@ import {
-    initWinstonLogger();
-    const app = express();
--   const port = 7799;
-+   const PORT = 7799;
-    app.use(express.json());
-@@ -34,6 +34,6 @@ app.use((_, res, next) => {
-    // ROUTES
-    app.use(PROTECTED_ROUTER_URL, protectedRouter);
--   app.listen(port, () => {
--   console.log(\`Server listening on port \${port}\`);
-+   app.listen(process.env.PORT || PORT, () => {
-+   console.log(\`Server listening on port \${PORT}\`);
-});
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 8cca890..db57430 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -4,6 +4,8 @@
+ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
++## [Unreleased]
++
+ ## [1.1.3] - 2023-08-07
+
+ ### Fixed
+diff --git a/README.md b/README.md
+index a972f5d..9245c73 100644
+--- a/README.md
++++ b/README.md
+@@ -33,10 +33,18 @@ composer global require dotninth/xenogit
+ 2. **Downloading from GitHub:** Visit the [Releases page](https://github.com/dotninth/xenogit/releases) on GitHub and download the appropriate binary.
+
+ ## Usage
+-After installing Xenogit, you can create commit messages by using a command:
++After installing Xenogit, you can all available options by simply launcing the program:
+
+ ```shell
+-xenogit commit
++$ xenogit
++
++  Xenogit  v1.1.3
++
++  USAGE:  <command> [options] [arguments]
++
++  commit         Automatically generate commit messages
++
++  config:api-key Configure the API key in the .env file
+ ```
+
+ ## API Key
+diff --git a/app/Commands/Commit.php b/app/Commands/Commit.php
+index 86f18f3..3a5078c 100644
+--- a/app/Commands/Commit.php
++++ b/app/Commands/Commit.php
+@@ -83,7 +83,7 @@ class Commit extends Command
+         return $openAi->complete([
+             [
+                 'role' => 'system',
+-                'content' => "You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the output of a 'git diff --staged' command, and you will convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, just the commit message. The first line should be no longer than 50 characters, and the body should be limited to 72 characters. Reply in English.",
++                'content' => "You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the output of a 'git diff --staged' command, and you will convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Reply in English.",
+             ],
+             [
+                 'role' => 'user',
+diff --git a/app/OpenAI.php b/app/OpenAI.php
+index ff98d9d..0a8acb1 100644
+--- a/app/OpenAI.php
++++ b/app/OpenAI.php
+@@ -15,13 +15,13 @@ class OpenAI
+      * @param string $apiKey      the API key
+      * @param string $model       the model to use (default: GPT3_16K)
+      * @param float  $temperature the temperature (default: 0)
+-     * @param int    $maxTokens   the maximum number of tokens (default: 196)
++     * @param int    $maxTokens   the maximum number of tokens (default: 50)
+      */
+     public function __construct(
+         protected string $apiKey,
+-        protected string $model = GPTModels::GPT3_16K->value,
++        protected string $model = GPTModels::GPT4->value,
+         protected float $temperature = 0,
+-        protected int $maxTokens = 196
++        protected int $maxTokens = 50
+     ) {
+     }
+

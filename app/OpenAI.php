@@ -15,13 +15,13 @@ class OpenAI
      * @param string $apiKey      the API key
      * @param string $model       the model to use (default: GPT3_16K)
      * @param float  $temperature the temperature (default: 0)
-     * @param int    $maxTokens   the maximum number of tokens (default: 196)
+     * @param int    $maxTokens   the maximum number of tokens (default: 50)
      */
     public function __construct(
         protected string $apiKey,
         protected string $model = GPTModels::GPT3_16K->value,
         protected float $temperature = 0,
-        protected int $maxTokens = 196
+        protected int $maxTokens = 50
     ) {
     }
 

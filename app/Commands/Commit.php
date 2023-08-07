@@ -83,7 +83,7 @@ class Commit extends Command
         return $openAi->complete([
             [
                 'role' => 'system',
-                'content' => "You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the output of a 'git diff --staged' command, and you will convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, just the commit message. The first line should be no longer than 50 characters, and the body should be limited to 72 characters. Reply in English.",
+                'content' => "You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the output of a 'git diff --staged' command, and you will convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Reply in English.",
             ],
             [
                 'role' => 'user',
@@ -91,7 +91,7 @@ class Commit extends Command
             ],
             [
                 'role' => 'assistant',
-                'content' => 'feat(server.ts): add support for process.env.PORT environment variable and change port variable case from lowercase port to uppercase PORT',
+                'content' => 'feat: update usage instructions in README, modify commit message instructions in Commit.php, and adjust parameters in OpenAI constructor',
             ],
             [
                 'role' => 'user',
