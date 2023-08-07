@@ -2,7 +2,6 @@
 
 namespace App\Commands;
 
-use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 class ConfigApiKey extends Command
@@ -27,13 +26,14 @@ class ConfigApiKey extends Command
      */
     public function handle()
     {
-        $envFilePath = getcwd().'/.env';
+        $binaryDir = \Phar::running(false);
+        $envFilePath = pathinfo($binaryDir, PATHINFO_DIRNAME).'/.env';
         $apiKey = 'API_KEY='.$this->argument('key');
 
-        if (!File::exists($envFilePath)) {
-            File::put($envFilePath, $apiKey);
-        } else {
-            File::append($envFilePath, PHP_EOL.$apiKey);
+        if (!file_exists($envFilePath)) {
+            touch($envFilePath);
         }
+
+        file_put_contents($envFilePath, PHP_EOL.$apiKey, FILE_APPEND);
     }
 }
