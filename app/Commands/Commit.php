@@ -7,6 +7,8 @@ use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
+use function Laravel\Prompts\text;
+
 class Commit extends Command
 {
     /**
@@ -155,9 +157,10 @@ class Commit extends Command
      */
     private function getNewCommitMessage(string $message): string
     {
-        return $this->anticipate(
-            'Please enter the new commit message. Use TAB to autocomplete',
-            [$message]
+        return text(
+            label: 'Please enter the new commit message.',
+            required: 'Commit message is required',
+            default: $message
         );
     }
 
