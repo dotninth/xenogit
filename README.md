@@ -12,7 +12,7 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/release-v1.1.3-blue" alt="Project Version">
+    <img src="https://img.shields.io/badge/release-v1.2.0-blue" alt="Project Version">
     <img src="https://img.shields.io/badge/php-%3E=8.1-royalblue" alt="PHP Version">
     <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
 </h4>
@@ -33,10 +33,18 @@ composer global require dotninth/xenogit
 2. **Downloading from GitHub:** Visit the [Releases page](https://github.com/dotninth/xenogit/releases) on GitHub and download the appropriate binary.
 
 ## Usage
-After installing Xenogit, you can create commit messages by using a command:
+After installing Xenogit, you can all available options by simply launcing the program:
 
 ```shell
-xenogit commit
+$ xenogit
+
+  Xenogit  v1.2.0
+
+  USAGE:  <command> [options] [arguments]
+
+  commit         Automatically generate commit messages
+
+  config:api-key Configure the API key in the .env file
 ```
 
 ## API Key
