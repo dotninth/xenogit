@@ -4,6 +4,22 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- `ConfigApiKey.php`: Added command to configure API key in .env file.
+- `Commit.php`: Added support for custom commit message input with Laravel Prompts.
+- `xenogit`: Prepared to be installable via composer.
+
+### Changed
+- `Commit.php`: Removed unused private variable and moved OpenAI initialization to `generateCommitMessage` method.
+
+### Removed
+- `phpcs.xml`: Removed `phpcs.xml` configuration file.
+
+### Dependencies
+- Added `laravel/prompts` package as a dependency.
+
 ## [1.0.0] - 2023-08-06
 
 ### Added
