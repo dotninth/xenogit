@@ -12,7 +12,7 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/release-v1.1.1-blue" alt="Project Version">
+    <img src="https://img.shields.io/badge/release-v1.1.2-blue" alt="Project Version">
     <img src="https://img.shields.io/badge/php-%3E=8.1-royalblue" alt="PHP Version">
     <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
 </h4>
@@ -42,9 +42,11 @@ xenogit commit
 ## API Key
 Xenogit needs an [API key from OpenAI](https://platform.openai.com/account/api-keys) to work properly. There are two options to provide the API key:
 
-1. Using environment variable: Create an environment variable called `API_KEY` that contains your [OpenAI API key](https://platform.openai.com/account/api-keys).
+1. Use the command `xenogit config:api-key <your-api-key>`.
 
-2. Create a file named `.env` in the directory where the Xenogit binary is located. This file will be used to store your environment variables. To the `.env` file, add the following line, replacing `<YOUR_API_KEY>` with your actual [OpenAI API key](https://platform.openai.com/account/api-keys):
+2. Using environment variable: Create an environment variable called `API_KEY` that contains your [OpenAI API key](https://platform.openai.com/account/api-keys).
+
+3. Create a file named `.env` in the directory where the Xenogit binary is located. This file will be used to store your environment variables. To the `.env` file, add the following line, replacing `<YOUR_API_KEY>` with your actual [OpenAI API key](https://platform.openai.com/account/api-keys):
 
 ```shell
 API_KEY=<YOUR_API_KEY>
