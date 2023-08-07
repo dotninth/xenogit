@@ -1,18 +1,18 @@
 {
-    "name": "laravel-zero/laravel-zero",
-    "description": "The Laravel Zero Framework.",
-    "keywords": ["framework", "laravel", "laravel zero", "console", "cli"],
-    "homepage": "https://laravel-zero.com",
+    "name": "dotninth/xenogit",
+    "description": "Your CLI buddy for instant Git commit messages. ",
+    "keywords": ["git", "commit", "message", "cli", "gpt", "gitprompt", "gpt-3", "gpt3", "gpt-4", "chatgpt", "console"],
+    "homepage": "https://github.com/dotninth/xenogit",
     "type": "project",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel-zero/laravel-zero/issues",
-        "source": "https://github.com/laravel-zero/laravel-zero"
+        "issues": "https://github.com/dotninth/xenogit/issues",
+        "source": "https://github.com/dotninth/xenogit"
     },
     "authors": [
         {
-            "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "name": "Dominik Lokkhart",
+            "email": "lokkhart@yard77.dev"
         }
     ],
     "require": {
