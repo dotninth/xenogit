@@ -26,27 +26,6 @@ class Commit extends Command
     protected $description = 'Automatically generate commit messages';
 
     /**
-     * This is a private variable that stores the OpenAI instance.
-     *
-     * @var OpenAI
-     */
-    private $openAi;
-
-    /**
-     * Constructor for the class.
-     *
-     * Initializes the object by calling the parent constructor and creating
-     * a new instance of the OpenAI class with the API key from the environment.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->openAi = new OpenAI(env('API_KEY'));
-    }
-
-    /**
      * Handles the logic for the Command.
      */
     public function handle()
@@ -95,7 +74,13 @@ class Commit extends Command
      */
     private function generateCommitMessage(string $diff): string
     {
-        return $this->openAi->complete([
+        if (env('API_KEY') === null) {
+            throw new \Exception('API_KEY is not set!');
+        }
+
+        $openAi = new OpenAI(env('API_KEY'));
+
+        return $openAi->complete([
             [
                 'role' => 'system',
                 'content' => "You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'\''ll send you the output of a '\''git diff --staged'\'' command, and you will convert it into a commit message. Do not preface the commit with anything, use the present tense. Don'\''t add any descriptions to the commit, just the commit message. The first line should be no longer than 50 characters, and the body should be limited to 72 characters. Reply in English.",
