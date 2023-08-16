@@ -27,13 +27,13 @@ class ConfigApiKey extends Command
     public function handle()
     {
         $binaryDir = \Phar::running(false);
-        $envFilePath = pathinfo($binaryDir, PATHINFO_DIRNAME).'/.env';
-        $apiKey = 'API_KEY='.$this->argument('key');
+        $envFilePath = pathinfo($binaryDir, PATHINFO_DIRNAME) . '/.env';
+        $apiKey = 'API_KEY=' . $this->argument('key');
 
-        if (!file_exists($envFilePath)) {
+        if (! file_exists($envFilePath)) {
             touch($envFilePath);
         }
 
-        file_put_contents($envFilePath, PHP_EOL.$apiKey, FILE_APPEND);
+        file_put_contents($envFilePath, PHP_EOL . $apiKey, FILE_APPEND);
     }
 }

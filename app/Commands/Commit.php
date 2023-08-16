@@ -52,7 +52,7 @@ class Commit extends Command
         $process = new Process(['git', 'diff', '--staged']);
         $process->run();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
@@ -68,8 +68,7 @@ class Commit extends Command
     /**
      * Generate a commit message based on the output of a git diff command.
      *
-     * @param string $diff the output of a git diff command
-     *
+     * @param  string  $diff the output of a git diff command
      * @return string the generated commit message
      */
     private function generateCommitMessage(string $diff): string
@@ -87,7 +86,7 @@ class Commit extends Command
             ],
             [
                 'role' => 'user',
-                'content' => file_get_contents(__DIR__.'/example.diff'),
+                'content' => file_get_contents(__DIR__ . '/example.diff'),
             ],
             [
                 'role' => 'assistant',
@@ -103,7 +102,7 @@ class Commit extends Command
     /**
      * Handles the user response and performs the necessary actions.
      *
-     * @param string $message the commit response message
+     * @param  string  $message the commit response message
      *
      * @throws ProcessFailedException if the process of committing is not successful
      */
@@ -128,7 +127,7 @@ class Commit extends Command
     /**
      * Checks if the user wants to modify the commit message.
      *
-     * @param string $message the commit response message
+     * @param  string  $message the commit response message
      */
     private function shouldModifyCommit(string $message): bool
     {
@@ -138,7 +137,7 @@ class Commit extends Command
     /**
      * Prompts the user for a new commit message.
      *
-     * @param string $message the commit response message
+     * @param  string  $message the commit response message
      */
     private function getNewCommitMessage(string $message): string
     {
@@ -162,7 +161,7 @@ class Commit extends Command
     /**
      * Commits the changes using the given message.
      *
-     * @param string $message the commit message
+     * @param  string  $message the commit message
      *
      * @throws ProcessFailedException if the process of committing is not successful
      */
@@ -172,7 +171,7 @@ class Commit extends Command
         $process = new Process($command);
         $process->run();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
