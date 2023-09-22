@@ -32,7 +32,8 @@ class Commit extends Command
     {
         try {
             $diff = $this->getGitDiff();
-            $message = $this->generateCommitMessage($diff);
+            $type = $this->selectCommitType();
+            $message = $this->generateCommitMessage($diff, $type);
             $this->handleUserResponse($message);
         } catch (\Exception $e) {
             $this->error($e->getMessage());
@@ -66,12 +67,37 @@ class Commit extends Command
     }
 
     /**
+     * Returns the selected commit type by a user.
+     *
+     * @return string the selected commit type
+     *
+     */
+    private function selectCommitType(): string
+    {
+        $types = [
+            'feat',
+            'fix',
+            'docs',
+            'refactor',
+            'style',
+            'chore',
+            'build',
+            'ci',
+            'perf',
+            'test'
+        ];
+
+        return $this->choice('Select preferred commit type', $types);
+    }
+
+    /**
      * Generate a commit message based on the output of a git diff command.
      *
      * @param  string  $diff the output of a git diff command
+     * @param  string  $type the selected commit type
      * @return string the generated commit message
      */
-    private function generateCommitMessage(string $diff): string
+    private function generateCommitMessage(string $diff, string $type): string
     {
         if (env('API_KEY') === null) {
             throw new \Exception('API_KEY is not set!');
@@ -82,7 +108,7 @@ class Commit extends Command
         return $openAi->complete([
             [
                 'role' => 'system',
-                'content' => "You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the output of a 'git diff --staged' command, and you will convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Reply in English.",
+                'content' => "You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the preferred commit type with output of a 'git diff --staged' command, and you will convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Reply in English.",
             ],
             [
                 'role' => 'user',
@@ -94,7 +120,7 @@ class Commit extends Command
             ],
             [
                 'role' => 'user',
-                'content' => $diff,
+                'content' => "{$type} {$diff}"
             ],
         ]);
     }
