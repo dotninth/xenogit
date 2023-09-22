@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - `Commit command`: Added support for setting the GPT model ID for the OpenAI API.
+- Added functionality for selecting commit type
 
 ## [1.2.0] - 2023-08-07
 
