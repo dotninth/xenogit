@@ -10,19 +10,61 @@ class OpenAI
     protected const API_URL = 'https://api.openai.com/v1/chat/completions';
 
     /**
+     * The OpenAI API key.
+     *
+     * @var string
+     */
+    protected $apiKey;
+
+    /**
+     * ID of the supported model to use.
+     *
+     * @var GPTModels
+     *
+     * @see https://beta.openai.com/docs/api-reference/completions/create
+     *
+     * @default GPT3_16K
+     */
+    protected ?GPTModels $model;
+
+    /**
+     * The temperature parameter.
+     *
+     *
+     * @see https://beta.openai.com/docs/api-reference/completions/create
+     *
+     * @default 0
+     */
+    protected float $temperature;
+
+    /**
+     * The maximum number of tokens to generate in the completion.
+     *
+     *
+     * @see https://beta.openai.com/docs/api-reference/completions/create
+     *
+     * @default 50
+     */
+    protected int $maxTokens;
+
+    /**
      * Constructor for the class.
      *
      * @param  string  $apiKey      the API key
-     * @param  string  $model       the model to use (default: GPT3_16K)
+     * @param  string|null  $model       the model to use (default: GPT3_16K)
      * @param  float  $temperature the temperature (default: 0)
      * @param  int  $maxTokens   the maximum number of tokens (default: 50)
      */
     public function __construct(
-        protected string $apiKey,
-        protected string $model = GPTModels::GPT3_16K->value,
-        protected float $temperature = 0,
-        protected int $maxTokens = 50
+        string $apiKey,
+        GPTModels $model = null,
+        float $temperature = 0,
+        int $maxTokens = 50
     ) {
+        $this->apiKey = $apiKey;
+        $this->model = $model ?: GPTModels::GPT3_16K;
+        $this->temperature = $temperature;
+        $this->maxTokens = $maxTokens;
     }
 
     /**
@@ -54,7 +96,7 @@ class OpenAI
     protected function prepareData(array $messages): array
     {
         return [
-            'model' => $this->model,
+            'model' => $this->model->value,
             'messages' => $messages,
             'temperature' => $this->temperature,
             'max_tokens' => $this->maxTokens,
