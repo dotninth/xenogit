@@ -16,7 +16,7 @@ class Commit extends Command
      *
      * @var string
      */
-    protected $signature = 'commit';
+    protected $signature = 'commit {--p} {type=?}';
 
     /**
      * The description of the command.
@@ -32,7 +32,7 @@ class Commit extends Command
     {
         try {
             $diff = $this->getGitDiff();
-            $type = $this->selectCommitType();
+            $type = $this->option('p') || $this->argument('type=') ?: $this->selectCommitType();
             $message = $this->generateCommitMessage($diff, $type);
             $this->handleUserResponse($message);
         } catch (\Exception $e) {
