@@ -45,7 +45,7 @@ class OpenAI
      *
      * @default 50
      */
-    protected int $maxTokens;
+    protected ?int $maxTokens;
 
     /**
      * Constructor for the class.
@@ -59,12 +59,12 @@ class OpenAI
         string $apiKey,
         GPTModels $model = null,
         float $temperature = 0,
-        int $maxTokens = 50
+        int $maxTokens = null
     ) {
         $this->apiKey = $apiKey;
         $this->model = $model ?: GPTModels::GPT3_16K;
         $this->temperature = $temperature;
-        $this->maxTokens = $maxTokens;
+        $this->maxTokens = $maxTokens ?: 50;
     }
 
     /**

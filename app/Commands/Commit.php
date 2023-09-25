@@ -18,7 +18,8 @@ class Commit extends Command
      * @var string
      */
     protected $signature = 'commit
-                            {--m|model= : Set the ID of the model to use (optional). Default: gpt-3.5-turbo-16k}';
+                            {--m|model= : Set the ID of the model to use (optional). Default: gpt-3.5-turbo-16k}
+                            {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 50}';
 
     /**
      * The description of the command.
@@ -34,8 +35,8 @@ class Commit extends Command
     {
         try {
             $diff = $this->getGitDiff();
-            $model = $this->getModel();
-            $message = $this->generateCommitMessage($diff, $model);
+            [$model, $maxTokens] = $this->getCommandOptions();
+            $message = $this->generateCommitMessage($diff, $model, $maxTokens);
             $this->handleUserResponse($message);
         } catch (\Exception $e) {
             $this->error($e->getMessage());
@@ -94,19 +95,57 @@ class Commit extends Command
     }
 
     /**
+     * Gets the maximum number of tokens from the command line option.
+     *
+     * @return int|null the maximum number of tokens to use, null if the option is not set
+     *
+     * @throws \Exception if the maximum number of tokens is not a positive integer
+     **/
+    private function getMaxTokens(): ?int
+    {
+        $maxTokensOption = $this->option('tokens');
+
+        if ($maxTokensOption === null) {
+            return null;
+        }
+
+        $maxTokens = (int) $maxTokensOption;
+
+        if ($maxTokens <= 0) {
+            throw new \Exception('Maximum number of tokens must be a positive integer more than 0!');
+        }
+
+        return $maxTokens;
+    }
+
+    /**
+     * Gets the command options.
+     *
+     * @return array the command options
+     **/
+    private function getCommandOptions(): array
+    {
+        return [
+            $this->getModel(),
+            $this->getMaxTokens(),
+        ];
+    }
+
+    /**
      * Generate a commit message based on the output of a git diff command.
      *
-     * @param  GPTModels|null  $model the ID of the supported model to use
      * @param  string  $diff the output of a git diff command
+     * @param  GPTModels|null  $model the ID of the supported model to use
+     * @param  int|null  $maxTokens the maximum number of tokens to use
      * @return string the generated commit message
      */
-    private function generateCommitMessage(string $diff, ?GPTModels $model): string
+    private function generateCommitMessage(string $diff, ?GPTModels $model, ?int $maxTokens): string
     {
         if (env('API_KEY') === null) {
             throw new \Exception('API_KEY is not set!');
         }
 
-        $openAi = new OpenAI(env('API_KEY'), $model);
+        $openAi = new OpenAI(env('API_KEY'), $model, maxTokens: $maxTokens);
 
         return $openAi->complete([
             [
