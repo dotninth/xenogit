@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Enums\GPTModels;
 use App\OpenAI;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -16,7 +17,8 @@ class Commit extends Command
      *
      * @var string
      */
-    protected $signature = 'commit';
+    protected $signature = 'commit
+                            {--m|model= : Set the ID of the model to use (optional). Default: gpt-3.5-turbo-16k}';
 
     /**
      * The description of the command.
@@ -32,7 +34,8 @@ class Commit extends Command
     {
         try {
             $diff = $this->getGitDiff();
-            $message = $this->generateCommitMessage($diff);
+            $model = $this->getModel();
+            $message = $this->generateCommitMessage($diff, $model);
             $this->handleUserResponse($message);
         } catch (\Exception $e) {
             $this->error($e->getMessage());
@@ -66,18 +69,44 @@ class Commit extends Command
     }
 
     /**
+     * Gets the ID of the GPT model from the command line option.
+     *
+     * @return GPTModels|null   the ID of the model to use
+     *
+     * @throws \Exception       if the model is not supported
+     */
+    private function getModel(): ?GPTModels
+    {
+        $modelOption = $this->option('model');
+
+        if ($modelOption === null) {
+            return null;
+        }
+
+        $model = GPTModels::tryFrom($modelOption);
+
+        if ($model === null) {
+            $supportedModels = implode(', ', array_column(GPTModels::cases(), 'value'));
+            throw new \Exception('Wrong model option! Currently supported models are: ' . $supportedModels);
+        }
+
+        return $model;
+    }
+
+    /**
      * Generate a commit message based on the output of a git diff command.
      *
+     * @param  GPTModels|null  $model the ID of the supported model to use
      * @param  string  $diff the output of a git diff command
      * @return string the generated commit message
      */
-    private function generateCommitMessage(string $diff): string
+    private function generateCommitMessage(string $diff, ?GPTModels $model): string
     {
         if (env('API_KEY') === null) {
             throw new \Exception('API_KEY is not set!');
         }
 
-        $openAi = new OpenAI(env('API_KEY'));
+        $openAi = new OpenAI(env('API_KEY'), $model);
 
         return $openAi->complete([
             [
