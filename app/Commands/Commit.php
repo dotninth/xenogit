@@ -19,6 +19,7 @@ class Commit extends Command
      */
     protected $signature = 'commit
                             {--m|model= : Set the ID of the model to use (optional). Default: gpt-3.5-turbo-16k}
+                            {--t|temperature= : Set the temperature (optional). Default: 0}
                             {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 50}';
 
     /**
@@ -35,8 +36,8 @@ class Commit extends Command
     {
         try {
             $diff = $this->getGitDiff();
-            [$model, $maxTokens] = $this->getCommandOptions();
-            $message = $this->generateCommitMessage($diff, $model, $maxTokens);
+            [$model, $temperature, $maxTokens] = $this->getCommandOptions();
+            $message = $this->generateCommitMessage($diff, $model, $temperature, $maxTokens);
             $this->handleUserResponse($message);
         } catch (\Exception $e) {
             $this->error($e->getMessage());
@@ -95,6 +96,30 @@ class Commit extends Command
     }
 
     /**
+     * Retrieves the temperature from the command line option.
+     *
+     * @return float|null The temperature to use, null if the option is not set
+     *
+     * @throws \Exception If the temperature is not a positive float between 0 and 2
+     **/
+    private function getTemperature(): ?float
+    {
+        $temperatureOption = $this->option('temperature');
+
+        if ($temperatureOption === null) {
+            return null;
+        }
+
+        $temperature = (float) $temperatureOption;
+
+        if (! is_float($temperatureOption) || $temperature < 0 || $temperature > 2) {
+            throw new \Exception('Temperature must be a positive float between 0 and 2!');
+        }
+
+        return $temperature;
+    }
+
+    /**
      * Gets the maximum number of tokens from the command line option.
      *
      * @return int|null the maximum number of tokens to use, null if the option is not set
@@ -127,6 +152,7 @@ class Commit extends Command
     {
         return [
             $this->getModel(),
+            $this->getTemperature(),
             $this->getMaxTokens(),
         ];
     }
@@ -136,16 +162,17 @@ class Commit extends Command
      *
      * @param  string  $diff the output of a git diff command
      * @param  GPTModels|null  $model the ID of the supported model to use
+     * @param  float|null  $temperature the temperature to use
      * @param  int|null  $maxTokens the maximum number of tokens to use
      * @return string the generated commit message
      */
-    private function generateCommitMessage(string $diff, ?GPTModels $model, ?int $maxTokens): string
+    private function generateCommitMessage(string $diff, ?GPTModels $model, ?float $temperature, ?int $maxTokens): string
     {
         if (env('API_KEY') === null) {
             throw new \Exception('API_KEY is not set!');
         }
 
-        $openAi = new OpenAI(env('API_KEY'), $model, maxTokens: $maxTokens);
+        $openAi = new OpenAI(env('API_KEY'), $model, $temperature, $maxTokens);
 
         return $openAi->complete([
             [

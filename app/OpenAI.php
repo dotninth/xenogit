@@ -35,7 +35,7 @@ class OpenAI
      *
      * @default 0
      */
-    protected float $temperature;
+    protected ?float $temperature;
 
     /**
      * The maximum number of tokens to generate in the completion.
@@ -58,12 +58,12 @@ class OpenAI
     public function __construct(
         string $apiKey,
         GPTModels $model = null,
-        float $temperature = 0,
+        float $temperature = null,
         int $maxTokens = null
     ) {
         $this->apiKey = $apiKey;
         $this->model = $model ?: GPTModels::GPT3_16K;
-        $this->temperature = $temperature;
+        $this->temperature = $temperature ?: 0;
         $this->maxTokens = $maxTokens ?: 50;
     }
 
