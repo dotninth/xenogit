@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Prompt;
 use App\Enums\GPTModels;
 use App\OpenAI;
 use LaravelZero\Framework\Commands\Command;
@@ -35,39 +36,12 @@ class Commit extends Command
     public function handle()
     {
         try {
-            $diff = $this->getGitDiff();
             [$model, $temperature, $maxTokens] = $this->getCommandOptions();
-            $message = $this->generateCommitMessage($diff, $model, $temperature, $maxTokens);
+            $message = $this->generateCommitMessage($model, $temperature, $maxTokens);
             $this->handleUserResponse($message);
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
-    }
-
-    /**
-     * Retrieves the git diff of the staged changes.
-     *
-     * @return string the git diff output
-     *
-     * @throws ProcessFailedException if the git diff command fails
-     * @throws \Exception             if there are no staged changes
-     */
-    private function getGitDiff(): string
-    {
-        $process = new Process(['git', 'diff', '--staged']);
-        $process->run();
-
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        $output = $process->getOutput();
-
-        if (empty($output)) {
-            throw new \Exception('There are no changes yet!');
-        }
-
-        return $output;
     }
 
     /**
@@ -166,7 +140,7 @@ class Commit extends Command
      * @param  int|null  $maxTokens the maximum number of tokens to use
      * @return string the generated commit message
      */
-    private function generateCommitMessage(string $diff, ?GPTModels $model, ?float $temperature, ?int $maxTokens): string
+    private function generateCommitMessage(?GPTModels $model, ?float $temperature, ?int $maxTokens): string
     {
         if (env('API_KEY') === null) {
             throw new \Exception('API_KEY is not set!');
@@ -174,24 +148,7 @@ class Commit extends Command
 
         $openAi = new OpenAI(env('API_KEY'), $model, $temperature, $maxTokens);
 
-        return $openAi->complete([
-            [
-                'role' => 'system',
-                'content' => "You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the output of a 'git diff --staged' command, and you will convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Reply in English.",
-            ],
-            [
-                'role' => 'user',
-                'content' => file_get_contents(__DIR__ . '/example.diff'),
-            ],
-            [
-                'role' => 'assistant',
-                'content' => 'feat: update usage instructions in README, modify commit message instructions in Commit.php, and adjust parameters in OpenAI constructor',
-            ],
-            [
-                'role' => 'user',
-                'content' => $diff,
-            ],
-        ]);
+        return $openAi->complete(Prompt::getPrompt());
     }
 
     /**
