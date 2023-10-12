@@ -2,9 +2,9 @@
 
 namespace App\Commands;
 
-use App\Prompt;
 use App\Enums\GPTModels;
 use App\OpenAI;
+use App\Prompt;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
