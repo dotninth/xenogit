@@ -37,9 +37,8 @@ class Commit extends Command
     {
         try {
             [$model, $temperature, $maxTokens] = $this->getCommandOptions();
-            $diff = $this->getGitDiff();
             $type = $this->selectCommitType();
-            $message = $this->generateCommitMessage($model, $temperature, $maxTokens, $diff, $type);
+            $message = $this->generateCommitMessage($model, $temperature, $maxTokens, $type);
             $this->handleUserResponse($message);
         } catch (\Exception $e) {
             $this->error($e->getMessage());
@@ -160,14 +159,13 @@ class Commit extends Command
     /**
      * Generate a commit message based on the output of a git diff command.
      *
-     * @param  string  $diff the output of a git diff command
      * @param  GPTModels|null  $model the ID of the supported model to use
      * @param  float|null  $temperature the temperature to use
      * @param  int|null  $maxTokens the maximum number of tokens to use
      * @param  string  $type the selected commit type
      * @return string the generated commit message
      */
-    private function generateCommitMessage(?GPTModels $model, ?float $temperature, ?int $maxTokens, string $diff, string $type): string
+    private function generateCommitMessage(?GPTModels $model, ?float $temperature, ?int $maxTokens, string $type): string
     {
         if (env('API_KEY') === null) {
             throw new \Exception('API_KEY is not set!');
