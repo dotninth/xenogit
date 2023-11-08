@@ -173,7 +173,7 @@ class Commit extends Command
 
         $openAi = new OpenAI(env('API_KEY'), $model, $temperature, $maxTokens);
 
-        return $openAi->complete(Prompt::getPrompt());
+        return $openAi->complete(Prompt::getPrompt($type));
     }
 
     /**

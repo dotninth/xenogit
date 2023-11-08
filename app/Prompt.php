@@ -28,7 +28,7 @@ class Prompt
         Do not preface the commit with anything. Use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Line must not be longer than 74 characters. Reply in English.
     EOD;
 
-    public static function getPrompt(): array
+    public static function getPrompt(string $type): array
     {
         return [
             [
@@ -45,7 +45,7 @@ class Prompt
             ],
             [
                 'role' => 'user',
-                'content' => self::getGitDiff(),
+                'content' => $type . ' ' . self::getGitDiff(),
             ],
         ];
     }
