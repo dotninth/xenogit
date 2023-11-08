@@ -60,6 +60,60 @@ Xenogit needs an [API key from OpenAI](https://platform.openai.com/account/api-k
 API_KEY=<YOUR_API_KEY>
 ```
 
+## v2.0.0 - Notes
+1. Rename the `xenogit` command to `xg`.
+2. Improve the prompt and move response to JSON.
+3. The goal of the program is stacked PRs workflow with AI integration:
+    - AI helps with writing commits and writing PRs.
+
+### New CLI commands
+```zsh
+xg init
+xg branch "new-branch-on-stack"
+xg branch rename "new-name-for-branch-on-stack" # xg branch rn "new-name-for-branch-on-stack"
+xg add my-file.txt
+xg add -i
+xg commit # xg cm?
+xg changelog # xg cl?
+xg pr create # xg pr cr?
+xg pr list
+xg pr status
+xg pr view
+xg checkout "another-branch-on-stack" # xg co "another-branch-on-stack"
+xg stack list # xg stack ls
+xg stack sync
+xg stack sync --trunk
+xg stack diff
+xg stack bottom # xg stack b
+xg stack next # xg stack n
+xg stack prev # xg stack p
+xg stack top #xg stack t
+xg stack tidy
+```
+
+#### Workflow Example
+```zsh
+xg init
+xg branch "feature/dev-1/backend"
+touch backend.txt
+xg add backend.txt
+xg commit
+xg pr create
+xg branch "feature/dev-2/frontend"
+touch frontend.txt
+xg add frontend.txt
+xg commit
+xg pr create
+xg checkout "feature/dev-1/backend"
+echo "Cool fix" > backend.txt
+xg add backend.txt
+xg commit
+xg sync
+xg stack b
+xg branch "feature/dev-3"
+...
+```
+
 ## Payment
 
 Using Xenogit will cost you money for each request you make to the OpenAI API. Xenogit uses the official ChatGPT (`gpt-3.5-turbo-16k`) model, which costs approximately 15 times less than GPT-4. Make sure you have enough funds or credits in your OpenAI account to pay for your usage of Xenogit.
