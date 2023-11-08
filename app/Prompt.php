@@ -8,7 +8,7 @@ use Symfony\Component\Process\Process;
 class Prompt
 {
     public const SYSTEM_MESSAGE = <<<'EOD'
-        You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the output of a 'git diff --staged' command, and you will convert it into a commit message.
+        You are to act as the author of a commit message in git. Your task is to create a clean and comprehensive commit message using conventional commit conventions. I'll send you the preferred commit type with the output of a 'git diff --staged' command, and you will convert it into a commit message.
 
         Reminders about the git diff format:
         For every file, there are a few metadata lines, like (for example):
@@ -28,7 +28,7 @@ class Prompt
         Do not preface the commit with anything. Use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Line must not be longer than 74 characters. Reply in English.
     EOD;
 
-    public static function getPrompt(): array
+    public static function getPrompt(string $type): array
     {
         return [
             [
@@ -45,7 +45,7 @@ class Prompt
             ],
             [
                 'role' => 'user',
-                'content' => self::getGitDiff(),
+                'content' => $type . ' ' . self::getGitDiff(),
             ],
         ];
     }
