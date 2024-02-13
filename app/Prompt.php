@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Exception;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -70,7 +71,7 @@ class Prompt
         $output = $process->getOutput();
 
         if (empty($output)) {
-            throw new \Exception('There are no changes yet!');
+            throw new Exception('There are no changes yet!');
         }
 
         return $output;

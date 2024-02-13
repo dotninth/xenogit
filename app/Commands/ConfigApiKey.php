@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use LaravelZero\Framework\Commands\Command;
+use Phar;
 
 class ConfigApiKey extends Command
 {
@@ -26,7 +27,7 @@ class ConfigApiKey extends Command
      */
     public function handle()
     {
-        $binaryDir = \Phar::running(false);
+        $binaryDir = Phar::running(false);
         $envFilePath = pathinfo($binaryDir, PATHINFO_DIRNAME) . '/.env';
         $apiKey = 'API_KEY=' . $this->argument('key');
 

@@ -19,7 +19,6 @@ class OpenAI
     /**
      * ID of the supported model to use.
      *
-     * @var GPTModels
      *
      * @see https://beta.openai.com/docs/api-reference/completions/create
      *
@@ -57,9 +56,9 @@ class OpenAI
      */
     public function __construct(
         string $apiKey,
-        GPTModels $model = null,
-        float $temperature = null,
-        int $maxTokens = null
+        ?GPTModels $model = null,
+        ?float $temperature = null,
+        ?int $maxTokens = null
     ) {
         $this->apiKey = $apiKey;
         $this->model = $model ?: GPTModels::GPT3_16K;

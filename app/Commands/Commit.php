@@ -5,6 +5,7 @@ namespace App\Commands;
 use App\Enums\GPTModels;
 use App\OpenAI;
 use App\Prompt;
+use Exception;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -39,7 +40,7 @@ class Commit extends Command
             [$model, $temperature, $maxTokens] = $this->getCommandOptions();
             $message = $this->generateCommitMessage($model, $temperature, $maxTokens);
             $this->handleUserResponse($message);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error($e->getMessage());
         }
     }
@@ -63,7 +64,7 @@ class Commit extends Command
 
         if ($model === null) {
             $supportedModels = implode(', ', array_column(GPTModels::cases(), 'value'));
-            throw new \Exception('Wrong model option! Currently supported models are: ' . $supportedModels);
+            throw new Exception('Wrong model option! Currently supported models are: ' . $supportedModels);
         }
 
         return $model;
@@ -87,7 +88,7 @@ class Commit extends Command
         $temperature = (float) $temperatureOption;
 
         if (! is_float($temperatureOption) || $temperature < 0 || $temperature > 2) {
-            throw new \Exception('Temperature must be a positive float between 0 and 2!');
+            throw new Exception('Temperature must be a positive float between 0 and 2!');
         }
 
         return $temperature;
@@ -111,7 +112,7 @@ class Commit extends Command
         $maxTokens = (int) $maxTokensOption;
 
         if ($maxTokens <= 0) {
-            throw new \Exception('Maximum number of tokens must be a positive integer more than 0!');
+            throw new Exception('Maximum number of tokens must be a positive integer more than 0!');
         }
 
         return $maxTokens;
@@ -142,11 +143,11 @@ class Commit extends Command
      */
     private function generateCommitMessage(?GPTModels $model, ?float $temperature, ?int $maxTokens): string
     {
-        if (env('API_KEY') === null) {
-            throw new \Exception('API_KEY is not set!');
+        if (config('openai.api_key') === null) {
+            throw new Exception('API_KEY is not set!');
         }
 
-        $openAi = new OpenAI(env('API_KEY'), $model, $temperature, $maxTokens);
+        $openAi = new OpenAI(config('openai.api_key'), $model, $temperature, $maxTokens);
 
         return $openAi->complete(Prompt::getPrompt());
     }
