@@ -26,7 +26,8 @@
         "laravel-zero/framework": "^10.0.2",
         "laravel/pint": "^1.11",
         "mockery/mockery": "^1.5.1",
-        "pestphp/pest": "^2.5"
+        "pestphp/pest": "^2.5",
+        "tightenco/duster": "^2.7"
     },
     "autoload": {
         "psr-4": {
