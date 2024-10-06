@@ -12,7 +12,7 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/release-v1.3.1-blue" alt="Project Version">
+    <img src="https://img.shields.io/badge/release-v2.0.0-blue" alt="Project Version">
     <img src="https://img.shields.io/badge/php-%3E=8.1-royalblue" alt="PHP Version">
     <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
 </h4>
@@ -38,7 +38,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v1.3.0
+  Xenogit  v2.0.0
 
   USAGE:  <command> [options] [arguments]
 
@@ -58,60 +58,6 @@ Xenogit needs an [API key from OpenAI](https://platform.openai.com/account/api-k
 
 ```shell
 API_KEY=<YOUR_API_KEY>
-```
-
-## v2.0.0 - Notes
-1. Rename the `xenogit` command to `xg`.
-2. Improve the prompt and move response to JSON.
-3. The goal of the program is stacked PRs workflow with AI integration:
-    - AI helps with writing commits and writing PRs.
-
-### New CLI commands
-```zsh
-xg init
-xg branch "new-branch-on-stack"
-xg branch rename "new-name-for-branch-on-stack" # xg branch rn "new-name-for-branch-on-stack"
-xg add my-file.txt
-xg add -i
-xg commit # xg cm?
-xg changelog # xg cl?
-xg pr create # xg pr cr?
-xg pr list
-xg pr status
-xg pr view
-xg checkout "another-branch-on-stack" # xg co "another-branch-on-stack"
-xg stack list # xg stack ls
-xg stack sync
-xg stack sync --trunk
-xg stack diff
-xg stack bottom # xg stack b
-xg stack next # xg stack n
-xg stack prev # xg stack p
-xg stack top #xg stack t
-xg stack tidy
-```
-
-#### Workflow Example
-```zsh
-xg init
-xg branch "feature/dev-1/backend"
-touch backend.txt
-xg add backend.txt
-xg commit
-xg pr create
-xg branch "feature/dev-2/frontend"
-touch frontend.txt
-xg add frontend.txt
-xg commit
-xg pr create
-xg checkout "feature/dev-1/backend"
-echo "Cool fix" > backend.txt
-xg add backend.txt
-xg commit
-xg sync
-xg stack b
-xg branch "feature/dev-3"
-...
 ```
 
 ## Payment
