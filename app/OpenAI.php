@@ -61,7 +61,7 @@ class OpenAI
         ?int $maxTokens = null
     ) {
         $this->apiKey = $apiKey;
-        $this->model = $model ?: GPTModels::GPT3_16K;
+        $this->model = $model ?: GPTModels::GPT4_TURBO;
         $this->temperature = $temperature ?: 0;
         $this->maxTokens = $maxTokens ?: 50;
     }
