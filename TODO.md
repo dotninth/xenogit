@@ -1,0 +1,21 @@
+# xenogit - To Do
+
+## Backlog
+
+- [ ] Add functionality to specify files
+- [ ] Add command to specify API key
+- [ ] Add functionality for setting default max tokens
+- [ ] Add functionality for setting default model
+- [ ] Allow to use any flags from `git commit`
+- [ ] Add command to generate changelog
+- [ ] Add functionality to ignore files with `.xenogitignore`
+- [ ] Add "smart" resolution of basic errors
+- [ ] Add functionality for editing the default prompt
+
+## [v2.0.0]
+
+- [ ] Add support for the latest models from OpenAI
+- [ ] Add support for models from Anthropic (Claude)
+- [ ] Add support for models from Perplexity
+- [ ] Add editing of the final commit message in the default user editor
+- [ ] Research and develop a more sensible way of writing commits instead of conventional commits
