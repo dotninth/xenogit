@@ -10,7 +10,8 @@ use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-use function Laravel\Prompts\text;
+use function Laravel\Prompts\textarea;
+use function Laravel\Prompts\confirm;
 
 class Commit extends Command
 {
@@ -184,7 +185,10 @@ class Commit extends Command
      */
     private function shouldModifyCommit(string $message): bool
     {
-        return $this->confirm('Do you want to modify it?');
+        return confirm(
+            label: 'Do you want to modify it?',
+            default: false,
+        );
     }
 
     /**
@@ -194,10 +198,14 @@ class Commit extends Command
      */
     private function getNewCommitMessage(string $message): string
     {
-        return text(
+        return textarea(
             label: 'Please enter the new commit message.',
             required: 'Commit message is required',
-            default: $message
+            default: $message,
+            validate: fn (string $value) => match (true) {
+                strlen($value) < 6 => 'Your commit should be longer than 6 characters.',
+                default => null
+            }
         );
     }
 
@@ -206,9 +214,10 @@ class Commit extends Command
      */
     private function confirmCommit(): bool
     {
-        $confirmationMessage = 'Do you accept this commit message?';
-
-        return $this->confirm($confirmationMessage, true);
+        return confirm(
+            label: 'Do you accept this commit message?',
+            default: true
+        );
     }
 
     /**
