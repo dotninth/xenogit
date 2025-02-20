@@ -14,8 +14,6 @@
 
 ## [v2.0.0]
 
-- [ ] Add support for the latest models from OpenAI
-- [ ] Add support for models from Anthropic (Claude)
-- [ ] Add support for models from Perplexity
+- [ ] Switch from OpenAI models to Google's Gemini 2.0 Flash
 - [ ] Add editing of the final commit message in the default user editor
 - [ ] Research and develop a more sensible way of writing commits instead of conventional commits
