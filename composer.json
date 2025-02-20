@@ -40,8 +40,7 @@
     "laravel-zero/framework": "^11.0",
     "laravel/pint": "^1.11",
     "mockery/mockery": "^1.5.1",
-    "pestphp/pest": "^2.5",
-    "tightenco/duster": "^2.7"
+    "pestphp/pest": "^2.5"
   },
   "autoload": {
     "psr-4": {
