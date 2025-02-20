@@ -10,8 +10,8 @@ use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-use function Laravel\Prompts\textarea;
 use function Laravel\Prompts\confirm;
+use function Laravel\Prompts\textarea;
 
 class Commit extends Command
 {
