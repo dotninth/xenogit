@@ -2,8 +2,8 @@
 
 namespace App\Commands;
 
-use App\Enums\GPTModels;
-use App\OpenAI;
+use App\Enums\GeminiModels;
+use App\GoogleGemini;
 use App\Prompt;
 use Exception;
 use LaravelZero\Framework\Commands\Command;
@@ -20,7 +20,7 @@ class Commit extends Command
      * @var string
      */
     protected $signature = 'commit
-                            {--m|model= : Set the ID of the model to use (optional). Default: gpt-3.5-turbo-16k}
+                            {--m|model= : Set the ID of the model to use (optional). Default: gemini-2.0-flash}
                             {--t|temperature= : Set the temperature (optional). Default: 0}
                             {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 50}';
 
@@ -34,7 +34,7 @@ class Commit extends Command
     /**
      * Handles the logic for the Command.
      */
-    public function handle()
+    public function handle(): void
     {
         try {
             [$model, $temperature, $maxTokens] = $this->getCommandOptions();
@@ -48,11 +48,11 @@ class Commit extends Command
     /**
      * Gets the ID of the GPT model from the command line option.
      *
-     * @return GPTModels|null   the ID of the model to use
+     * @return GeminiModels|null the ID of the model to use
      *
-     * @throws \Exception       if the model is not supported
+     * @throws \Exception if the model is not supported
      */
-    private function getModel(): ?GPTModels
+    private function getModel(): ?GeminiModels
     {
         $modelOption = $this->option('model');
 
@@ -60,10 +60,10 @@ class Commit extends Command
             return null;
         }
 
-        $model = GPTModels::tryFrom($modelOption);
+        $model = GeminiModels::tryFrom($modelOption);
 
         if ($model === null) {
-            $supportedModels = implode(', ', array_column(GPTModels::cases(), 'value'));
+            $supportedModels = implode(', ', array_column(GeminiModels::cases(), 'value'));
             throw new Exception('Wrong model option! Currently supported models are: ' . $supportedModels);
         }
 
@@ -135,27 +135,27 @@ class Commit extends Command
     /**
      * Generate a commit message based on the output of a git diff command.
      *
-     * @param  string  $diff the output of a git diff command
-     * @param  GPTModels|null  $model the ID of the supported model to use
-     * @param  float|null  $temperature the temperature to use
-     * @param  int|null  $maxTokens the maximum number of tokens to use
+     * @param  string  $diff  the output of a git diff command
+     * @param  GeminiModels|null  $model  the ID of the supported model to use
+     * @param  float|null  $temperature  the temperature to use
+     * @param  int|null  $maxTokens  the maximum number of tokens to use
      * @return string the generated commit message
      */
-    private function generateCommitMessage(?GPTModels $model, ?float $temperature, ?int $maxTokens): string
+    private function generateCommitMessage(?GeminiModels $model, ?float $temperature, ?int $maxTokens): string
     {
-        if (config('openai.api_key') === null) {
+        if (config('gemini.api_key') === null) {
             throw new Exception('API_KEY is not set!');
         }
 
-        $openAi = new OpenAI(config('openai.api_key'), $model, $temperature, $maxTokens);
+        $googleGemini = new GoogleGemini(config('gemini.api_key'), $model, $temperature, $maxTokens);
 
-        return $openAi->complete(Prompt::getPrompt());
+        return $googleGemini->complete(Prompt::getPrompt());
     }
 
     /**
      * Handles the user response and performs the necessary actions.
      *
-     * @param  string  $message the commit response message
+     * @param  string  $message  the commit response message
      *
      * @throws ProcessFailedException if the process of committing is not successful
      */
@@ -180,7 +180,7 @@ class Commit extends Command
     /**
      * Checks if the user wants to modify the commit message.
      *
-     * @param  string  $message the commit response message
+     * @param  string  $message  the commit response message
      */
     private function shouldModifyCommit(string $message): bool
     {
@@ -190,7 +190,7 @@ class Commit extends Command
     /**
      * Prompts the user for a new commit message.
      *
-     * @param  string  $message the commit response message
+     * @param  string  $message  the commit response message
      */
     private function getNewCommitMessage(string $message): string
     {
@@ -214,7 +214,7 @@ class Commit extends Command
     /**
      * Commits the changes using the given message.
      *
-     * @param  string  $message the commit message
+     * @param  string  $message  the commit message
      *
      * @throws ProcessFailedException if the process of committing is not successful
      */

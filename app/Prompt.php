@@ -57,7 +57,7 @@ class Prompt
      * @return string the git diff output
      *
      * @throws ProcessFailedException if the git diff command fails
-     * @throws \Exception             if there are no staged changes
+     * @throws \Exception if there are no staged changes
      */
     private static function getGitDiff(): string
     {
