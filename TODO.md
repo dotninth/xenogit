@@ -15,5 +15,6 @@
 ## [v2.0.0]
 
 - [x] Switch from OpenAI models to Google's Gemini 2.0 Flash
-- [ ] Add editing of the final commit message in the default user editor
+- [x] Modify prompts for the Laravel Prompts library
 - [ ] Research and develop a more sensible way of writing commits instead of conventional commits
+    - Is it needed?
