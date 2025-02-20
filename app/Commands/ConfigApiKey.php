@@ -13,7 +13,7 @@ class ConfigApiKey extends Command
      * @var string
      */
     protected $signature = 'config:api-key
-        {key : The OpenAI API key (required)}';
+        {key : The Gemini API key (required)}';
 
     /**
      * The description of the command.

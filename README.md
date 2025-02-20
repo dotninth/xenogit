@@ -12,16 +12,19 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/release-v1.3.2-blue" alt="Project Version">
+    <img src="https://img.shields.io/badge/release-v2.0.0-blue" alt="Project Version">
     <img src="https://img.shields.io/badge/php-%3E=8.1-royalblue" alt="PHP Version">
     <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
 </h4>
 
 ## Introduction
-`Xenogit` is your helpful command-line assistant that uses [OpenAI](https://openai.com/) GPT to quickly create commit messages that follow the [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) specification. Stop spending time writing commits and start managing your Git repository effortlessly!
+
+`Xenogit` is your helpful command-line assistant that uses [Google Gemini](https://deepmind.google/technologies/gemini/) to quickly create commit messages that follow the [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) specification. Stop spending time writing commits and start managing your Git repository effortlessly!
 
 ## ️Getting Started
+
 ### Installing
+
 There are two ways to install Xenogit:
 
 1. **Using Composer:** Run the following command to install Xenogit globally:
@@ -33,12 +36,13 @@ composer global require dotninth/xenogit
 2. **Downloading from GitHub:** Visit the [Releases page](https://github.com/dotninth/xenogit/releases) on GitHub and download the appropriate binary.
 
 ## Usage
+
 After installing Xenogit, you can all available options by simply launcing the program:
 
 ```shell
 $ xenogit
 
-  Xenogit  v1.3.2
+  Xenogit  v2.0.0
 
   USAGE:  <command> [options] [arguments]
 
@@ -48,13 +52,14 @@ $ xenogit
 ```
 
 ## API Key
-Xenogit needs an [API key from OpenAI](https://platform.openai.com/account/api-keys) to work properly. There are two options to provide the API key:
+
+Xenogit needs an [API key from Google AI Studio](https://aistudio.google.com/apikey) to work properly. There are two options to provide the API key:
 
 1. Use the command `xenogit config:api-key <your-api-key>`.
 
-2. Using environment variable: Create an environment variable called `API_KEY` that contains your [OpenAI API key](https://platform.openai.com/account/api-keys).
+2. Using environment variable: Create an environment variable called `API_KEY` that contains your [Gemini API key](https://aistudio.google.com/apikey).
 
-3. Create a file named `.env` in the directory where the Xenogit binary is located. This file will be used to store your environment variables. To the `.env` file, add the following line, replacing `<YOUR_API_KEY>` with your actual [OpenAI API key](https://platform.openai.com/account/api-keys):
+3. Create a file named `.env` in the directory where the Xenogit binary is located. This file will be used to store your environment variables. To the `.env` file, add the following line, replacing `<YOUR_API_KEY>` with your actual [Gemini API key](https://aistudio.google.com/apikey):
 
 ```shell
 API_KEY=<YOUR_API_KEY>
@@ -62,11 +67,14 @@ API_KEY=<YOUR_API_KEY>
 
 ## Payment
 
-Using Xenogit will cost you money for each request you make to the OpenAI API. Xenogit uses the official ChatGPT (`gpt-3.5-turbo-16k`) model, which costs approximately 15 times less than GPT-4. Make sure you have enough funds or credits in your OpenAI account to pay for your usage of Xenogit.
+Using Xenogit will cost you money for every request you make to the Gemini API. Xenogit uses the official Gemini 2.0 (`gemini-2.0-flash`) model, which is the best model in terms of price/quality ratio. At least for the task Xenogit solves.
 
-To find out more about the price for using OpenAI's services, please check their pricing page at [OpenAI Pricing page](https://openai.com/pricing).
+You can also use Free Tier for Gemini. Be sure to check for limitations and be aware that Google will use your data to improve their products.
+
+To find out more about the price for using Google's services, please check their pricing page at [Gemini Pricing page](https://ai.google.dev/gemini-api/docs/pricing).
 
 ## Contribute
+
 You are welcome to contribute to Xenogit! For a smooth collaboration, please follow these guidelines when contributing to the project:
 
 1. Fork the repository and clone it to your local machine.
