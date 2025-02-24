@@ -61,11 +61,11 @@ class Commit extends Command
             return null;
         }
 
-        $model = GeminiModels::tryFrom($modelOption);
+        $model = GeminiModels::tryFromCliFlag($modelOption);
 
         if ($model === null) {
-            $supportedModels = implode(', ', array_column(GeminiModels::cases(), 'value'));
-            throw new Exception('Wrong model option! Currently supported models are: '.$supportedModels);
+            $supportedModels = implode("\n\t", GeminiModels::casesForCli());
+            throw new Exception("Wrong model option!\nCurrently supported models are:\n\t{$supportedModels}");
         }
 
         return $model;
