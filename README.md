@@ -42,7 +42,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v2.0.0
+  Xenogit  v2.1.0
 
   USAGE:  <command> [options] [arguments]
 
@@ -50,6 +50,39 @@ $ xenogit
 
   config:api-key Configure the API key in the .env file
 ```
+
+```shell
+$ xenogit help commit
+
+Description:
+  Automatically generate commit messages
+
+Usage:
+  commit [options]
+
+Options:
+  -m, --model[=MODEL]              Set the ID of the model to use (optional). Default: gemini-2.0-flash
+  -t, --temperature[=TEMPERATURE]  Set the temperature (optional). Default: 0
+  -k, --tokens[=TOKENS]            Set the maximum number of tokens to use (optional). Default: 100
+  -h, --help                       Display help for the given command. When no command is given display help for the list command
+  -q, --quiet                      Do not output any message
+  -V, --version                    Display this application version
+      --ansi|--no-ansi             Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction             Do not ask any interactive question
+      --env[=ENV]                  The environment the command should run under
+  -v|vv|vvv, --verbose             Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+
+## Currently available models
+
+You can use 3 models from Google:
+
+- Gemini 2.0 Flash
+- Gemini 2.0 Flash Lite
+- Gemini 2.0 Flash Thinking
+
+> [!INFO]
+> Note that **Gemini 2.0 Flash Thinking** takes longer and costs more to generate a commit. But if you have a huge set of changes (huge commit), it works best.
 
 ## API Key
 
