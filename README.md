@@ -75,13 +75,13 @@ Options:
 
 ## Currently available models
 
-You can use 3 models from Google:
+You can use 3 models from Google that you can use with the `-m` flag:
 
-- Gemini 2.0 Flash
-- Gemini 2.0 Flash Lite
-- Gemini 2.0 Flash Thinking
+- Gemini 2.0 Flash - `gemini-2.0-flash`
+- Gemini 2.0 Flash Lite - `gemini-2.0-flash-lite`
+- Gemini 2.0 Flash Thinking - `gemini-2.0-flash-thinking`
 
-> [!INFO]
+> [!NOTE]
 > Note that **Gemini 2.0 Flash Thinking** takes longer and costs more to generate a commit. But if you have a huge set of changes (huge commit), it works best.
 
 ## API Key
