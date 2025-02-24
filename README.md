@@ -12,8 +12,8 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/release-v2.0.0-blue" alt="Project Version">
-    <img src="https://img.shields.io/badge/php-%3E=8.1-royalblue" alt="PHP Version">
+    <img src="https://img.shields.io/badge/release-v2.1.0-blue" alt="Project Version">
+    <img src="https://img.shields.io/badge/php-%3E=8.2-royalblue" alt="PHP Version">
     <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
 </h4>
 
