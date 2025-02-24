@@ -23,7 +23,7 @@ class Commit extends Command
     protected $signature = 'commit
                             {--m|model= : Set the ID of the model to use (optional). Default: gemini-2.0-flash}
                             {--t|temperature= : Set the temperature (optional). Default: 0}
-                            {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 50}';
+                            {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 100}';
 
     /**
      * The description of the command.
@@ -65,7 +65,7 @@ class Commit extends Command
 
         if ($model === null) {
             $supportedModels = implode(', ', array_column(GeminiModels::cases(), 'value'));
-            throw new Exception('Wrong model option! Currently supported models are: ' . $supportedModels);
+            throw new Exception('Wrong model option! Currently supported models are: '.$supportedModels);
         }
 
         return $model;

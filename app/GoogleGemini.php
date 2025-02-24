@@ -56,7 +56,7 @@ class GoogleGemini
         $this->apiKey = $apiKey;
         $this->model = $model ?: GeminiModels::GEMINI_20_FLASH;
         $this->temperature = $temperature ?: 0;
-        $this->maxTokens = $maxTokens ?: 100;
+        $this->maxTokens = $maxTokens ?: $this->getDefaultMaxTokens($maxTokens);
     }
 
     /**
@@ -94,5 +94,19 @@ class GoogleGemini
             'max_tokens' => $this->maxTokens,
             'top_p' => 1,
         ];
+    }
+
+    /**
+     * Returns the default value for the maximum number of tokens.
+     *
+     * @return int the default value for the maximum number of tokens
+     */
+    protected function getDefaultMaxTokens(): int
+    {
+        if ($this->model === GeminiModels::GEMINI_20_FLASH_THINKING) {
+            return 65536;
+        }
+
+        return 100;
     }
 }

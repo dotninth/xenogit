@@ -26,7 +26,7 @@ class Prompt
         A line that starts with neither `+` nor `-` is code given for context and better understanding.
         It is not part of the diff.
 
-        Do not preface the commit with anything. Use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Line must not be longer than 74 characters. Reply in English.
+        Do not preface the commit with anything. Use the present tense. Don't add any descriptions to the commit, just the commit message. Commit should be only one line. Ideally, the message should be no longer than 74 characters, but that's not necessary. Reply in English.
     EOD;
 
     public static function getPrompt(): array
@@ -38,7 +38,7 @@ class Prompt
             ],
             [
                 'role' => 'user',
-                'content' => file_get_contents(__DIR__ . '/example.diff'),
+                'content' => file_get_contents(__DIR__.'/example.diff'),
             ],
             [
                 'role' => 'assistant',
