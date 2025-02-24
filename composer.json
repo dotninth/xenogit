@@ -14,7 +14,8 @@
     "chatgpt",
     "console",
     "claude",
-    "perplexity"
+    "perplexity",
+    "gemini"
   ],
   "homepage": "https://github.com/dotninth/xenogit",
   "type": "project",
