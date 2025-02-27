@@ -12,14 +12,15 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/release-v2.1.0-blue" alt="Project Version">
+    <img src="https://img.shields.io/badge/release-v2.2.0-blue" alt="Project Version">
     <img src="https://img.shields.io/badge/php-%3E=8.2-royalblue" alt="PHP Version">
     <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
 </h4>
 
 ## Introduction
 
-`Xenogit` is your helpful command-line assistant that uses [Google Gemini](https://deepmind.google/technologies/gemini/) to quickly create commit messages that follow the [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) specification. Stop spending time writing commits and start managing your Git repository effortlessly!
+`Xenogit` is your helpful command-line assistant that uses [Google Gemini](https://deepmind.google/technologies/gemini/) to quickly create commit messages.
+Stop spending time writing commits and start managing your Git repository effortlessly!
 
 ## ️Getting Started
 
@@ -42,7 +43,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v2.1.0
+  Xenogit  v2.2.0
 
   USAGE:  <command> [options] [arguments]
 
@@ -114,7 +115,7 @@ You are welcome to contribute to Xenogit! For a smooth collaboration, please fol
 2. Create a new branch for your contribution: `git checkout -b my-contribution`.
 3. Make your changes, making sure the code follows the project's coding style and conventions.
 4. Test your changes thoroughly.
-5. Commit your changes with a descriptive commit message, following the [Conventional Commit](https://www.conventionalcommits.org/) specification.
+5. Commit your changes with a descriptive commit message.
 6. Push your branch to your forked repository: `git push origin my-contribution'.
 7. Open a pull request against the `main' branch of the Xenogit repository.
 8. Provide a clear and detailed description of your changes in the pull request, along with any relevant information or context.
