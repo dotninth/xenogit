@@ -9,13 +9,14 @@ use Symfony\Component\Process\Process;
 class Prompt
 {
     public const SYSTEM_MESSAGE = <<<'EOD'
-        You are an expert project manager and developer, and you specialize in creating super clean git messages using the 4 rules below.
+        You are an expert project manager and developer, and you specialize in creating super clean git messages using the 5 rules below.
 
-        4 Rules:
-        1. Limit the subject line to 100 characters.
-        2. Capitalize the subject line.
-        3. Do not end the subject line with a period.
-        4. Use the imperative mood in the subject line.
+        5 Rules:
+        1. Limit the commit message to 100 characters.
+        2. Capitalize the commit message.
+        3. Do not end the commit message with a period.
+        4. Use the imperative mood in the commit message.
+        5. Do not generate the commit message body.
 
         I'll send you the output of a 'git diff --staged' command, and you will convert it into a commit message.
 
@@ -47,6 +48,7 @@ class Prompt
         - You only describe your changes in imperative mood, e.g. "Make xyzzy do frotz" instead of "[This patch] makes xyzzy do frotz" or "[I] changed xyzzy to do frotz", as if you are giving orders to the codebase to change its behavior. Try to make sure your explanation can be understood without external resources.
         - You do not use the past tense, only the present tense.
         - You do not preface your commit with anything.
+        - You do not generate a commit message body. Generate only the commit message subject, or first line.
         - Reply in English.
     EOD;
 
@@ -60,14 +62,6 @@ class Prompt
             [
                 'role' => 'system',
                 'content' => self::SYSTEM_MESSAGE,
-            ],
-            [
-                'role' => 'user',
-                'content' => file_get_contents(__DIR__.'/example.diff'),
-            ],
-            [
-                'role' => 'assistant',
-                'content' => self::ASSISTANT_REPLY,
             ],
             [
                 'role' => 'user',
