@@ -52,10 +52,6 @@ class Prompt
         - Reply in English.
     EOD;
 
-    public const ASSISTANT_REPLY = <<<'EOD'
-        Configure server port from environment variable
-    EOD;
-
     public static function getPrompt(): array
     {
         return [
