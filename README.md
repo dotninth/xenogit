@@ -17,6 +17,8 @@
     <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
 </h4>
 
+<br />
+
 ## Introduction
 
 `Xenogit` is your helpful command-line assistant that uses [Google Gemini](https://deepmind.google/technologies/gemini/) to quickly create commit messages.
