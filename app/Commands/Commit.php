@@ -11,6 +11,7 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 use function Laravel\Prompts\confirm;
+use function Laravel\Prompts\select;
 use function Laravel\Prompts\textarea;
 
 class Commit extends Command
@@ -33,14 +34,56 @@ class Commit extends Command
     protected $description = 'Automatically generate commit messages';
 
     /**
+     * The Gemini model to use for generating commit messages.
+     */
+    protected ?GeminiModels $model;
+
+    /**
+     * The temperature setting for the AI model.
+     * Higher values make output more random, lower values more deterministic.
+     */
+    protected ?float $temperature;
+
+    /**
+     * The maximum number of tokens to generate in the response.
+     */
+    protected ?int $maxTokens;
+
+    /**
+     * The generated commit message.
+     */
+    protected string $message;
+
+    /**
+     * Constant representing the action to modify the commit message.
+     *
+     * @var string
+     */
+    protected const MODIFY_COMMIT = 'modify_commit';
+
+    /**
+     * Constant representing the action to accept the commit message.
+     *
+     * @var string
+     */
+    protected const ACCEPT_COMMIT = 'accept_commit';
+
+    /**
+     * Constant representing the action to regenerate the commit message.
+     *
+     * @var string
+     */
+    protected const REGENERATE_COMMIT = 'regenerate_commit';
+
+    /**
      * Handles the logic for the Command.
      */
     public function handle(): void
     {
         try {
-            [$model, $temperature, $maxTokens] = $this->getCommandOptions();
-            $message = $this->generateCommitMessage($model, $temperature, $maxTokens);
-            $this->handleUserResponse($message);
+            $this->setCommandOptions();
+            $this->generateCommitMessage();
+            $this->handleUserResponse();
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }
@@ -120,57 +163,59 @@ class Commit extends Command
     }
 
     /**
-     * Gets the command options.
-     *
-     * @return array the command options
+     * Sets the command options.
      **/
-    private function getCommandOptions(): array
+    private function setCommandOptions(): void
     {
-        return [
-            $this->getModel(),
-            $this->getTemperature(),
-            $this->getMaxTokens(),
-        ];
+        $this->model = $this->getModel();
+        $this->temperature = $this->getTemperature();
+        $this->maxTokens = $this->getMaxTokens();
     }
 
     /**
      * Generate a commit message based on the output of a git diff command.
-     *
-     * @param  string  $diff  the output of a git diff command
-     * @param  GeminiModels|null  $model  the ID of the supported model to use
-     * @param  float|null  $temperature  the temperature to use
-     * @param  int|null  $maxTokens  the maximum number of tokens to use
-     * @return string the generated commit message
      */
-    private function generateCommitMessage(?GeminiModels $model, ?float $temperature, ?int $maxTokens): string
+    private function generateCommitMessage(): void
     {
         if (config('gemini.api_key') === null) {
             throw new Exception('API_KEY is not set!');
         }
 
-        $googleGemini = new GoogleGemini(config('gemini.api_key'), $model, $temperature, $maxTokens);
+        $googleGemini = new GoogleGemini(
+            apiKey: config('gemini.api_key'),
+            model: $this->model,
+            temperature: $this->temperature,
+            maxTokens: $this->maxTokens
+        );
 
-        return $googleGemini->complete(Prompt::getPrompt());
+        $this->message = $googleGemini->complete(Prompt::getPrompt());
     }
 
     /**
      * Handles the user response and performs the necessary actions.
      *
-     * @param  string  $message  the commit response message
-     *
      * @throws ProcessFailedException if the process of committing is not successful
      */
-    private function handleUserResponse(string $message): void
+    private function handleUserResponse(): void
     {
-        $this->warn($message);
+        $this->warn($this->message);
 
-        if ($this->shouldModifyCommit($message)) {
-            $message = $this->getNewCommitMessage($message);
-            $this->warn($message);
+        $action = $this->askWhatToDoWithCommit();
+
+        if ($action === Commit::REGENERATE_COMMIT) {
+            $this->generateCommitMessage();
+            $this->handleUserResponse();
+
+            return;
         }
 
-        if ($this->confirmCommit($message)) {
-            $this->commitChanges($message);
+        if ($action === Commit::MODIFY_COMMIT) {
+            $this->getNewCommitMessage();
+            $this->warn($this->message);
+        }
+
+        if ($this->confirmCommit()) {
+            $this->commitChanges();
 
             return;
         }
@@ -181,27 +226,30 @@ class Commit extends Command
     /**
      * Checks if the user wants to modify the commit message.
      *
-     * @param  string  $message  the commit response message
+     * @return string The action to take with the commit message.
      */
-    private function shouldModifyCommit(string $message): bool
+    private function askWhatToDoWithCommit(): string
     {
-        return confirm(
+        return select(
             label: 'Do you want to modify it?',
-            default: false,
+            options: [
+                Commit::MODIFY_COMMIT => 'Yes',
+                Commit::ACCEPT_COMMIT => 'No',
+                Commit::REGENERATE_COMMIT => 'Regenerate',
+            ],
+            default: Commit::ACCEPT_COMMIT
         );
     }
 
     /**
      * Prompts the user for a new commit message.
-     *
-     * @param  string  $message  the commit response message
      */
-    private function getNewCommitMessage(string $message): string
+    private function getNewCommitMessage(): void
     {
-        return textarea(
+        $this->message = textarea(
             label: 'Please enter the new commit message.',
             required: 'Commit message is required',
-            default: $message,
+            default: $this->message,
             validate: fn (string $value) => match (true) {
                 strlen($value) < 6 => 'Your commit should be longer than 6 characters.',
                 default => null
@@ -223,13 +271,11 @@ class Commit extends Command
     /**
      * Commits the changes using the given message.
      *
-     * @param  string  $message  the commit message
-     *
      * @throws ProcessFailedException if the process of committing is not successful
      */
-    private function commitChanges(string $message): void
+    private function commitChanges(): void
     {
-        $command = ['git', 'commit', '-m', $message];
+        $command = ['git', 'commit', '-m', $this->message];
         $process = new Process($command);
         $process->run();
 
