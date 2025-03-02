@@ -22,6 +22,8 @@
 `Xenogit` is your helpful command-line assistant that uses [Google Gemini](https://deepmind.google/technologies/gemini/) to quickly create commit messages.
 Stop spending time writing commits and start managing your Git repository effortlessly!
 
+<br />
+
 ## ️Getting Started
 
 ### Installing
@@ -35,6 +37,8 @@ composer global require dotninth/xenogit
 ```
 
 2. **Downloading from GitHub:** Visit the [Releases page](https://github.com/dotninth/xenogit/releases) on GitHub and download the appropriate binary.
+
+<br />
 
 ## Usage
 
@@ -74,6 +78,8 @@ Options:
   -v|vv|vvv, --verbose             Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 ```
 
+<br />
+
 ## Currently available models
 
 You can use 3 models from Google that you can use with the `-m` flag:
@@ -85,6 +91,8 @@ You can use 3 models from Google that you can use with the `-m` flag:
 
 > [!NOTE]
 > Note that **Gemini 2.0 Flash Thinking** takes longer and costs more to generate a commit. But if you have a huge set of changes (huge commit), it works best.
+
+<br />
 
 ## API Key
 
@@ -100,6 +108,8 @@ Xenogit needs an [API key from Google AI Studio](https://aistudio.google.com/api
 API_KEY=<YOUR_API_KEY>
 ```
 
+<br />
+
 ## Payment
 
 Using Xenogit will cost you money for every request you make to the Gemini API. Xenogit uses the official Gemini 2.0 (`gemini-2.0-flash`) model, which is the best model in terms of price/quality ratio. At least for the task Xenogit solves.
@@ -107,6 +117,8 @@ Using Xenogit will cost you money for every request you make to the Gemini API. 
 You can also use Free Tier for Gemini. Be sure to check for limitations and be aware that Google will use your data to improve their products.
 
 To find out more about the price for using Google's services, please check their pricing page at [Gemini Pricing page](https://ai.google.dev/gemini-api/docs/pricing).
+
+<br />
 
 ## Bash aliases example
 
@@ -120,6 +132,8 @@ alias axc="git add . && xc"
 alias xcp="xc && git push"
 alias axcp="axc && git push"
 ```
+
+<br />
 
 ## Contribute
 
@@ -135,6 +149,8 @@ You are welcome to contribute to Xenogit! For a smooth collaboration, please fol
 8. Provide a clear and detailed description of your changes in the pull request, along with any relevant information or context.
 
 Please note that by contributing to Xenogit, you agree to release your contributions under the [MIT License](LICENSE.md).
+
+<br />
 
 ## License
 
