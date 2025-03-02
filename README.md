@@ -12,9 +12,9 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/release-v2.2.0-blue" alt="Project Version">
-    <img src="https://img.shields.io/badge/php-%3E=8.2-royalblue" alt="PHP Version">
-    <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
+    <img src="https://img.shields.io/badge/v2.2.0-version?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=version" alt="Latest Stable Version">
+    <img src="https://img.shields.io/badge/8.2-php_version?style=for-the-badge&color=89dceb&labelColor=302D41&label=php" alt="PHP Version">
+    <img src="https://img.shields.io/badge/MIT-license?style=for-the-badge&color=cba6f7&labelColor=302D41&label=license" alt="MIT License">
 </h4>
 
 <br />
