@@ -108,6 +108,19 @@ You can also use Free Tier for Gemini. Be sure to check for limitations and be a
 
 To find out more about the price for using Google's services, please check their pricing page at [Gemini Pricing page](https://ai.google.dev/gemini-api/docs/pricing).
 
+## Bash aliases example
+
+To simplify common workflows, such as adding files to git and committing them, I recommend creating bash aliases.
+
+Here are mine _(sort of a mnemonic for aliases)_:
+
+```zsh
+alias xc="xenogit commit"
+alias axc="git add . && xc"
+alias xcp="xc && git push"
+alias axcp="axc && git push"
+```
+
 ## Contribute
 
 You are welcome to contribute to Xenogit! For a smooth collaboration, please follow these guidelines when contributing to the project:
