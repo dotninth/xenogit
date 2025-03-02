@@ -55,7 +55,7 @@ class GoogleGemini
     ) {
         $this->apiKey = $apiKey;
         $this->model = $model ?: GeminiModels::GEMINI_20_FLASH;
-        $this->temperature = $temperature ?: 0;
+        $this->temperature = $temperature ?: 0.3;
         $this->maxTokens = $maxTokens ?: $this->getDefaultMaxTokens($maxTokens);
     }
 
