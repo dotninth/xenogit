@@ -42,7 +42,7 @@ class Prompt
         - **Redraw**: A change that MUST be just a drawing patch, e.g. change a graphic, image, icon, etc.
         - **Reword**: A change that MUST be just a wording patch, e.g. change a comment, label, doc, etc.
         - **Revise**: A change that MUST be just a revising patch e.g. a change, an alteration, a correction, etc.
-        - **Refit/Refresh/Renew/Reload**: A change that MUST be just a patch e.g. update test data, API keys, etc.
+        - **Refit/Refresh/Renew/Reload/Upload/Reupload**: A change that MUST be just a patch e.g. update test data, API keys, etc.
 
         Use these summary keywords for things that don't fit into the above categories:
 
