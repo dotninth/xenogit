@@ -2,6 +2,7 @@
 
 ## Backlog
 
+- [ ] Move from PHP to Zig or Go?
 - [ ] Add functionality to specify files
 - [ ] Add functionality for setting default max tokens
 - [ ] Add functionality for setting default model
@@ -9,7 +10,12 @@
 - [ ] Add functionality to ignore files with `.xenogitignore`
 - [ ] Add "smart" resolution of basic errors
 - [ ] Add functionality for editing the default prompt
-- [ ] Add command to generate changelog???
+- [ ] Add command to generate changelog
+- [ ] Add a better way to handle errors from the API
+
+## [v2.3.0]
+
+- [x] Create a more standardized way to commit. Without conventional commits.
 
 ## [v2.2.0]
 
