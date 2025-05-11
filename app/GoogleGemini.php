@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Http;
 
 class GoogleGemini
 {
-    protected const API_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
+    protected const API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
+
+    protected const API_ACTION = 'generateContent';
 
     /**
      * The OpenAI API key.
@@ -69,14 +71,20 @@ class GoogleGemini
      */
     public function complete(array $messages): string
     {
-        $response = Http::withToken(
-            token: $this->apiKey
-        )->post(
-            url: GoogleGemini::API_URL,
+        $url = sprintf(
+            '%s/%s:%s?key=%s',
+            self::API_BASE_URL,
+            $this->model->value,
+            self::API_ACTION,
+            $this->apiKey
+        );
+
+        $response = Http::post(
+            url: $url,
             data: $this->prepareData(messages: $messages)
         )->throw();
 
-        return $response['choices'][0]['message']['content'];
+        return $response->json('candidates.0.content.parts.0.text', '');
     }
 
     /**
@@ -87,13 +95,29 @@ class GoogleGemini
      */
     protected function prepareData(array $messages): array
     {
-        return [
-            'model' => $this->model->value,
-            'messages' => $messages,
+        $data = [];
+
+        foreach ($messages as $message) {
+            if ($message['role'] === 'system') {
+                $data['system_instruction'] = [
+                    'parts' => [['text' => $message['content']]],
+                ];
+            } elseif ($message['role'] === 'user') {
+                $data['contents'] = [
+                    [
+                        'parts' => [['text' => $message['content']]],
+                    ],
+                ];
+            }
+        }
+
+        $data['generationConfig'] = [
             'temperature' => $this->temperature,
-            'max_tokens' => $this->maxTokens,
-            'top_p' => 1,
+            'maxOutputTokens' => $this->maxTokens,
+            'responseMimeType' => 'text/plain',
         ];
+
+        return $data;
     }
 
     /**
@@ -103,6 +127,8 @@ class GoogleGemini
      */
     protected function getDefaultMaxTokens(): int
     {
+        return 65536;
+
         if ($this->model === GeminiModels::GEMINI_20_FLASH_THINKING) {
             return 65536;
         }
