@@ -79,7 +79,7 @@ class GoogleGemini
             $this->apiKey
         );
 
-        $response = Http::post(
+        $response = Http::timeout(seconds: 180)->post(
             url: $url,
             data: $this->prepareData(messages: $messages)
         )->throw();
