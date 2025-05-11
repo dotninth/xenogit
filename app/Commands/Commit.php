@@ -12,6 +12,7 @@ use Symfony\Component\Process\Process;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\select;
+use function Laravel\Prompts\spin;
 use function Laravel\Prompts\textarea;
 
 class Commit extends Command
@@ -188,7 +189,10 @@ class Commit extends Command
             maxTokens: $this->maxTokens
         );
 
-        $this->message = $googleGemini->generate(messages: Prompt::getPrompt());
+        $this->message = spin(
+            message: 'Generating your commit message...',
+            callback: fn () => $googleGemini->generate(messages: Prompt::getPrompt())
+        );
     }
 
     /**
