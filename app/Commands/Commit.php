@@ -188,7 +188,7 @@ class Commit extends Command
             maxTokens: $this->maxTokens
         );
 
-        $this->message = $googleGemini->complete(Prompt::getPrompt());
+        $this->message = $googleGemini->generate(messages: Prompt::getPrompt());
     }
 
     /**

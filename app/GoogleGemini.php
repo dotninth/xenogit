@@ -12,7 +12,7 @@ class GoogleGemini
     protected const API_ACTION = 'generateContent';
 
     /**
-     * The OpenAI API key.
+     * The Gemini API key.
      *
      * @var string
      */
@@ -22,7 +22,7 @@ class GoogleGemini
      * ID of the supported model to use.
      *
      *
-     * @default GPT3_16K
+     * @default GEMINI_20_FLASH
      */
     protected ?GeminiModels $model;
 
@@ -45,7 +45,7 @@ class GoogleGemini
      * Constructor for the class.
      *
      * @param  string  $apiKey  the API key
-     * @param  string|null  $model  the model to use (default: GPT3_16K)
+     * @param  string|null  $model  the model to use (default: GEMINI_20_FLASH)
      * @param  float  $temperature  the temperature (default: 0)
      * @param  int  $maxTokens  the maximum number of tokens (default: 50)
      */
@@ -62,14 +62,14 @@ class GoogleGemini
     }
 
     /**
-     * Sends a POST request to the OpenAI API to complete the given messages.
+     * Sends a POST request to the Google Gemini API to generate new content.
      *
      * @param  array  $messages  the array of messages to be completed
      * @return string the completed message content
      *
      * @throws Exception if an error occurs during the HTTP request
      */
-    public function complete(array $messages): string
+    public function generate(array $messages): string
     {
         $url = sprintf(
             '%s/%s:%s?key=%s',
