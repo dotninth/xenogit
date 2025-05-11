@@ -6,6 +6,7 @@
 - [ ] Add functionality to specify files
 - [ ] Add functionality for setting default max tokens
 - [ ] Add functionality for setting default model
+- [ ] Add functionality for turning off thinking
 - [ ] Allow to use any flags from `git commit`
 - [ ] Add functionality to ignore files with `.xenogitignore`
 - [ ] Add "smart" resolution of basic errors
@@ -16,6 +17,8 @@
 ## [v2.3.0]
 
 - [x] Create a more standardized way to commit. Without conventional commits.
+- [x] Add Gemini 2.5 (Flash and Pro) models
+- [x] Remove old models (Gemini 2.0 Flash Thinking, Gemini 2.0 Pro)
 
 ## [v2.2.0]
 
