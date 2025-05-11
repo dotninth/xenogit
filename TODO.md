@@ -14,6 +14,10 @@
 - [ ] Add command to generate changelog
 - [ ] Add a better way to handle errors from the API
 
+## [v2.3.1]
+
+- [x] Add longer timeout to HTTP request
+
 ## [v2.3.0]
 
 - [x] Create a more standardized way to commit. Without conventional commits.
