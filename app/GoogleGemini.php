@@ -127,9 +127,7 @@ class GoogleGemini
      */
     protected function getDefaultMaxTokens(): int
     {
-        return 65536;
-
-        if ($this->model === GeminiModels::GEMINI_20_FLASH_THINKING) {
+        if ($this->model === GeminiModels::GEMINI_25_FLASH || $this->model === GeminiModels::GEMINI_25_PRO) {
             return 65536;
         }
 
