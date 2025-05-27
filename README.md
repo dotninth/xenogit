@@ -12,8 +12,8 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/v2.3.1-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
-    <img src="https://img.shields.io/badge/v2.3.1-beta?style=for-the-badge&color=f5a97f&labelColor=302D41&label=beta" alt="Latest Beta Version">
+    <img src="https://img.shields.io/badge/v2.3.2-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
+    <img src="https://img.shields.io/badge/v2.3.2-beta?style=for-the-badge&color=f5a97f&labelColor=302D41&label=beta" alt="Latest Beta Version">
     <img src="https://img.shields.io/badge/8.2-php_version?style=for-the-badge&color=89dceb&labelColor=302D41&label=php" alt="PHP Version">
     <img src="https://img.shields.io/badge/MIT-license?style=for-the-badge&color=cba6f7&labelColor=302D41&label=license" alt="MIT License">
 </h4>
@@ -50,7 +50,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v2.3.0
+  Xenogit  v2.3.2
 
   USAGE:  <command> [options] [arguments]
 
