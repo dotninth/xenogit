@@ -18,6 +18,26 @@ use function Laravel\Prompts\textarea;
 class Commit extends Command
 {
     /**
+     * Constant representing the action to modify the commit message.
+     *
+     * @var string
+     */
+    protected const MODIFY_COMMIT = 'modify_commit';
+
+    /**
+     * Constant representing the action to accept the commit message.
+     *
+     * @var string
+     */
+    protected const ACCEPT_COMMIT = 'accept_commit';
+
+    /**
+     * Constant representing the action to regenerate the commit message.
+     *
+     * @var string
+     */
+    protected const REGENERATE_COMMIT = 'regenerate_commit';
+    /**
      * The signature of the command.
      *
      * @var string
@@ -56,27 +76,6 @@ class Commit extends Command
     protected string $message;
 
     /**
-     * Constant representing the action to modify the commit message.
-     *
-     * @var string
-     */
-    protected const MODIFY_COMMIT = 'modify_commit';
-
-    /**
-     * Constant representing the action to accept the commit message.
-     *
-     * @var string
-     */
-    protected const ACCEPT_COMMIT = 'accept_commit';
-
-    /**
-     * Constant representing the action to regenerate the commit message.
-     *
-     * @var string
-     */
-    protected const REGENERATE_COMMIT = 'regenerate_commit';
-
-    /**
      * Handles the logic for the Command.
      */
     public function handle(): void
@@ -95,7 +94,7 @@ class Commit extends Command
      *
      * @return GeminiModels|null the ID of the model to use
      *
-     * @throws \Exception if the model is not supported
+     * @throws Exception if the model is not supported
      */
     private function getModel(): ?GeminiModels
     {
@@ -120,7 +119,7 @@ class Commit extends Command
      *
      * @return float|null The temperature to use, null if the option is not set
      *
-     * @throws \Exception If the temperature is not a positive float between 0 and 2
+     * @throws Exception If the temperature is not a positive float between 0 and 2
      **/
     private function getTemperature(): ?float
     {
@@ -144,7 +143,7 @@ class Commit extends Command
      *
      * @return int|null the maximum number of tokens to use, null if the option is not set
      *
-     * @throws \Exception if the maximum number of tokens is not a positive integer
+     * @throws Exception if the maximum number of tokens is not a positive integer
      **/
     private function getMaxTokens(): ?int
     {
