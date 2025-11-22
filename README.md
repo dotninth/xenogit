@@ -127,7 +127,7 @@ API_KEY=<YOUR_API_KEY>
 
 ## Payment
 
-Using Xenogit will cost you money for every request you make to the Gemini API. Xenogit uses the official Gemini 2.0 (`gemini-2.0-flash`) model, which is the best model in terms of price/quality ratio. At least for the task Xenogit solves.
+Using Xenogit will cost you money for every request you make to the Gemini API. Xenogit uses the official Gemini 2.5 Flash (`gemini-2.5-flash`) model.
 
 You can also use Free Tier for Gemini. Be sure to check for limitations and be aware that Google will use your data to improve their products.
 
