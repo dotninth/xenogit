@@ -69,7 +69,7 @@ Usage:
   commit [options]
 
 Options:
-  -m, --model[=MODEL]              Set the ID of the model to use (optional). Default: gemini-2.0-flash
+  -m, --model[=MODEL]              Set the ID of the model to use (optional). Default: gemini-2.5-flash
   -t, --temperature[=TEMPERATURE]  Set the temperature (optional). Default: 0
   -k, --tokens[=TOKENS]            Set the maximum number of tokens to use (optional). Default: 100
   -h, --help                       Display help for the given command. When no command is given display help for the list command
@@ -85,12 +85,24 @@ Options:
 
 ## Currently available models
 
-You can use 3 models from Google that you can use with the `-m` flag:
+You can use 6 models from Google that you can use with the `-m` flag:
+
+#### Gemini 2.0
 
 - Gemini 2.0 Flash - `gemini-2.0-flash`
 - Gemini 2.0 Flash Lite - `gemini-2.0-flash-lite`
-- Gemini 2.5 Flash - `gemini-2.5-flash-preview`
-- Gemini 2.5 Pro - `gemini-2.5-pro-preview`
+
+#### Gemini 2.5
+
+- Gemini 2.5 Flash - `gemini-2.5-flash`
+- Gemini 2.5 Flash Preview - `gemini-2.5-flash-preview-09-2025`
+- Gemini 2.5 Flash Lite - `gemini-2.5-flash-lite`
+- Gemini 2.5 Flash Lite Preview - `gemini-2.5-flash-lite-preview-09-2025`
+- Gemini 2.5 Pro - `gemini-2.5-pro`
+
+#### Gemini 3.0
+
+- Gemini 3.0 Pro - `gemini-3-pro-preview`
 
 > [!NOTE]
 > Note that **Gemini 2.5** models takes longer and costs more to generate a commit. But if you have a huge set of changes (huge commit), it works best.
