@@ -69,7 +69,7 @@ Usage:
   commit [options]
 
 Options:
-  -m, --model[=MODEL]              Set the ID of the model to use (optional). Default: gemini-2.5-flash
+  -m, --model[=MODEL]              Set the ID of the model to use (optional). Default: gemini-2.5-flash-lite
   -t, --temperature[=TEMPERATURE]  Set the temperature (optional). Default: 0
   -k, --tokens[=TOKENS]            Set the maximum number of tokens to use (optional). Default: 100
   -h, --help                       Display help for the given command. When no command is given display help for the list command
@@ -127,7 +127,8 @@ API_KEY=<YOUR_API_KEY>
 
 ## Payment
 
-Using Xenogit will cost you money for every request you make to the Gemini API. Xenogit uses the official Gemini 2.5 Flash (`gemini-2.5-flash`) model.
+Using Xenogit will cost you money for every request you make to the Gemini API. Xenogit uses the official Gemini 2.5 Flash Lite (`gemini-2.5-flash-lite`) model,
+which is the best model in terms of price/quality ratio. At least for the task Xenogit solves.
 
 You can also use Free Tier for Gemini. Be sure to check for limitations and be aware that Google will use your data to improve their products.
 

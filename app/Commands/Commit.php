@@ -37,13 +37,14 @@ class Commit extends Command
      * @var string
      */
     protected const REGENERATE_COMMIT = 'regenerate_commit';
+
     /**
      * The signature of the command.
      *
      * @var string
      */
     protected $signature = 'commit
-                            {--m|model= : Set the ID of the model to use (optional). Default: gemini-2.5-flash}
+                            {--m|model= : Set the ID of the model to use (optional). Default: gemini-2.5-flash-lite}
                             {--t|temperature= : Set the temperature (optional). Default: 0.3}
                             {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 100}';
 

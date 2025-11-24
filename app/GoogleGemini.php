@@ -45,7 +45,7 @@ class GoogleGemini
      * Constructor for the class.
      *
      * @param  string  $apiKey  the API key
-     * @param  string|null  $model  the model to use (default: GEMINI_25_FLASH)
+     * @param  string|null  $model  the model to use (default: GEMINI_25_FLASH_LITE)
      * @param  float  $temperature  the temperature (default: 0)
      * @param  int  $maxTokens  the maximum number of tokens (default: 50)
      */
@@ -56,7 +56,7 @@ class GoogleGemini
         ?int $maxTokens = null
     ) {
         $this->apiKey = $apiKey;
-        $this->model = $model ?: GeminiModels::GEMINI_25_FLASH;
+        $this->model = $model ?: GeminiModels::GEMINI_25_FLASH_LITE;
         $this->temperature = $temperature ?: 0.3;
         $this->maxTokens = $maxTokens ?: $this->getDefaultMaxTokens($maxTokens);
     }
