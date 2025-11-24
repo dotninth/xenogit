@@ -50,7 +50,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v2.3.3
+  Xenogit  v2.3.4
 
   USAGE:  <command> [options] [arguments]
 
