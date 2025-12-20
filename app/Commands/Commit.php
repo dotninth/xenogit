@@ -46,7 +46,8 @@ class Commit extends Command
     protected $signature = 'commit
                             {--m|model= : Set the ID of the model to use (optional). Default: gemini-2.5-flash-lite}
                             {--t|temperature= : Set the temperature (optional). Default: 0.3}
-                            {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 100}';
+                            {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 100}
+                            {--thinking= : Set the thinking level for Gemini 3 models (optional)}';
 
     /**
      * The description of the command.
@@ -70,6 +71,11 @@ class Commit extends Command
      * The maximum number of tokens to generate in the response.
      */
     protected ?int $maxTokens;
+
+    /**
+     * The thinking level for Gemini 3 models.
+     */
+    protected ?string $thinking;
 
     /**
      * The generated commit message.
@@ -164,6 +170,37 @@ class Commit extends Command
     }
 
     /**
+     * Gets the thinking level from the command line option.
+     *
+     * @return string|null The thinking level, null if the option is not set
+     *
+     * @throws Exception If the thinking level is invalid or the model doesn't support it
+     **/
+    private function getThinking(): ?string
+    {
+        $thinking = $this->option('thinking');
+
+        if ($thinking === null) {
+            return null;
+        }
+
+        $thinking = strtoupper($thinking);
+        $model = $this->model ?: GeminiModels::GEMINI_25_FLASH_LITE;
+
+        $valid = match ($model) {
+            GeminiModels::GEMINI_30_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            GeminiModels::GEMINI_30_PRO => ['LOW', 'HIGH'],
+            default => throw new Exception('Thinking mode is only supported for Gemini 3 models!'),
+        };
+
+        if (! in_array($thinking, $valid)) {
+            throw new Exception("Invalid thinking level for {$model->value}! Supported: " . implode(', ', $valid));
+        }
+
+        return $thinking;
+    }
+
+    /**
      * Sets the command options.
      **/
     private function setCommandOptions(): void
@@ -171,6 +208,7 @@ class Commit extends Command
         $this->model = $this->getModel();
         $this->temperature = $this->getTemperature();
         $this->maxTokens = $this->getMaxTokens();
+        $this->thinking = $this->getThinking();
     }
 
     /**
@@ -186,7 +224,8 @@ class Commit extends Command
             apiKey: config('gemini.api_key'),
             model: $this->model,
             temperature: $this->temperature,
-            maxTokens: $this->maxTokens
+            maxTokens: $this->maxTokens,
+            thinking: $this->thinking
         );
 
         $this->message = spin(

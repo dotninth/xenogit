@@ -42,23 +42,31 @@ class GoogleGemini
     protected ?int $maxTokens;
 
     /**
+     * The thinking level for Gemini 3 models.
+     */
+    protected ?string $thinking;
+
+    /**
      * Constructor for the class.
      *
      * @param  string  $apiKey  the API key
-     * @param  string|null  $model  the model to use (default: GEMINI_25_FLASH_LITE)
-     * @param  float  $temperature  the temperature (default: 0)
-     * @param  int  $maxTokens  the maximum number of tokens (default: 50)
+     * @param  GeminiModels|null  $model  the model to use (default: GEMINI_25_FLASH_LITE)
+     * @param  float|null  $temperature  the temperature (default: 0.3)
+     * @param  int|null  $maxTokens  the maximum number of tokens (default: 100)
+     * @param  string|null  $thinking  the thinking level (default: null)
      */
     public function __construct(
         string $apiKey,
         ?GeminiModels $model = null,
         ?float $temperature = null,
-        ?int $maxTokens = null
+        ?int $maxTokens = null,
+        ?string $thinking = null
     ) {
         $this->apiKey = $apiKey;
         $this->model = $model ?: GeminiModels::GEMINI_25_FLASH_LITE;
         $this->temperature = $temperature ?: 0.3;
-        $this->maxTokens = $maxTokens ?: $this->getDefaultMaxTokens($maxTokens);
+        $this->maxTokens = $maxTokens ?: $this->getDefaultMaxTokens();
+        $this->thinking = $thinking;
     }
 
     /**
@@ -117,6 +125,12 @@ class GoogleGemini
             'responseMimeType' => 'text/plain',
         ];
 
+        if ($this->thinking) {
+            $data['generationConfig']['thinkingConfig'] = [
+                'thinkingLevel' => $this->thinking,
+            ];
+        }
+
         return $data;
     }
 
@@ -127,10 +141,12 @@ class GoogleGemini
      */
     protected function getDefaultMaxTokens(): int
     {
-        if ($this->model === GeminiModels::GEMINI_25_FLASH || $this->model === GeminiModels::GEMINI_25_PRO) {
-            return 65536;
-        }
-
-        return 100;
+        return match ($this->model) {
+            GeminiModels::GEMINI_25_FLASH,
+            GeminiModels::GEMINI_25_PRO,
+            GeminiModels::GEMINI_30_FLASH,
+            GeminiModels::GEMINI_30_PRO => 65536,
+            default => 100,
+        };
     }
 }
