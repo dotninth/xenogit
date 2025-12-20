@@ -12,8 +12,8 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/v2.3.4-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
-    <img src="https://img.shields.io/badge/v2.3.4-beta?style=for-the-badge&color=f5a97f&labelColor=302D41&label=beta" alt="Latest Beta Version">
+    <img src="https://img.shields.io/badge/v2.4.0-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
+    <img src="https://img.shields.io/badge/v2.4.0-beta?style=for-the-badge&color=f5a97f&labelColor=302D41&label=beta" alt="Latest Beta Version">
     <img src="https://img.shields.io/badge/8.2-php_version?style=for-the-badge&color=89dceb&labelColor=302D41&label=php" alt="PHP Version">
     <img src="https://img.shields.io/badge/MIT-license?style=for-the-badge&color=cba6f7&labelColor=302D41&label=license" alt="MIT License">
 </h4>
@@ -50,7 +50,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v2.3.4
+  Xenogit  v2.4.0
 
   USAGE:  <command> [options] [arguments]
 
@@ -72,6 +72,7 @@ Options:
   -m, --model[=MODEL]              Set the ID of the model to use (optional). Default: gemini-2.5-flash-lite
   -t, --temperature[=TEMPERATURE]  Set the temperature (optional). Default: 0
   -k, --tokens[=TOKENS]            Set the maximum number of tokens to use (optional). Default: 100
+      --thinking[=THINKING]        Set the thinking level for Gemini 3 models (optional)
   -h, --help                       Display help for the given command. When no command is given display help for the list command
   -q, --quiet                      Do not output any message
   -V, --version                    Display this application version
@@ -102,10 +103,11 @@ You can use 6 models from Google that you can use with the `-m` flag:
 
 #### Gemini 3.0
 
+- Gemini 3.0 Flash - `gemini-3-flash-preview`
 - Gemini 3.0 Pro - `gemini-3-pro-preview`
 
 > [!NOTE]
-> Note that **Gemini 2.5** models takes longer and costs more to generate a commit. But if you have a huge set of changes (huge commit), it works best.
+> Note that **Gemini 2.5 Pro** and **Gemini 3** models takes longer and costs more to generate a commit. But if you have a huge set of changes (huge commit), it works best.
 
 <br />
 
