@@ -142,10 +142,10 @@ class GoogleGemini
     protected function getDefaultMaxTokens(): int
     {
         return match ($this->model) {
-            GeminiModels::GEMINI_25_FLASH,
             GeminiModels::GEMINI_25_PRO,
-            GeminiModels::GEMINI_30_FLASH,
-            GeminiModels::GEMINI_30_PRO => 65536,
+            GeminiModels::GEMINI_3_FLASH,
+            GeminiModels::GEMINI_31_PRO,
+            GeminiModels::GEMINI_31_FLASH_LITE => 65536,
             default => 100,
         };
     }

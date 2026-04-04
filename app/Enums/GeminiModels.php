@@ -4,15 +4,12 @@ namespace App\Enums;
 
 enum GeminiModels: string
 {
-    case GEMINI_20_FLASH = 'gemini-2.0-flash';
-    case GEMINI_20_FLASH_LITE = 'gemini-2.0-flash-lite';
     case GEMINI_25_FLASH = 'gemini-2.5-flash';
-    case GEMINI_25_FLASH_PREVIEW = 'gemini-2.5-flash-preview-09-2025';
     case GEMINI_25_FLASH_LITE = 'gemini-2.5-flash-lite';
-    case GEMINI_25_FLASH_LITE_PREVIEW = 'gemini-2.5-flash-lite-preview-09-2025';
     case GEMINI_25_PRO = 'gemini-2.5-pro';
-    case GEMINI_30_FLASH = 'gemini-3-flash-preview';
-    case GEMINI_30_PRO = 'gemini-3-pro-preview';
+    case GEMINI_3_FLASH = 'gemini-3-flash-preview';
+    case GEMINI_31_PRO = 'gemini-3.1-pro-preview';
+    case GEMINI_31_FLASH_LITE = 'gemini-3.1-flash-lite-preview';
 
     /**
      * Get all cases without version suffix.

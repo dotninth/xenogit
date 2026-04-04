@@ -16,8 +16,7 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/v2.4.0-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
-    <img src="https://img.shields.io/badge/v2.4.0-beta?style=for-the-badge&color=f5a97f&labelColor=302D41&label=beta" alt="Latest Beta Version">
+    <img src="https://img.shields.io/badge/v2.5.0-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
     <img src="https://img.shields.io/badge/8.2-php_version?style=for-the-badge&color=89dceb&labelColor=302D41&label=php" alt="PHP Version">
     <img src="https://img.shields.io/badge/MIT-license?style=for-the-badge&color=cba6f7&labelColor=302D41&label=license" alt="MIT License">
 </h4>
@@ -54,7 +53,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v2.4.0
+  Xenogit  v2.5.0
 
   USAGE:  <command> [options] [arguments]
 
@@ -90,28 +89,17 @@ Options:
 
 ## Currently available models
 
-You can use 6 models from Google that you can use with the `-m` flag:
-
-#### Gemini 2.0
-
-- Gemini 2.0 Flash - `gemini-2.0-flash`
-- Gemini 2.0 Flash Lite - `gemini-2.0-flash-lite`
-
-#### Gemini 2.5
+You can use the following models from Google with the `-m` flag:
 
 - Gemini 2.5 Flash - `gemini-2.5-flash`
-- Gemini 2.5 Flash Preview - `gemini-2.5-flash-preview-09-2025`
 - Gemini 2.5 Flash Lite - `gemini-2.5-flash-lite`
-- Gemini 2.5 Flash Lite Preview - `gemini-2.5-flash-lite-preview-09-2025`
 - Gemini 2.5 Pro - `gemini-2.5-pro`
-
-#### Gemini 3.0
-
-- Gemini 3.0 Flash - `gemini-3-flash-preview`
-- Gemini 3.0 Pro - `gemini-3-pro-preview`
+- Gemini 3 Flash - `gemini-3-flash-preview`
+- Gemini 3.1 Pro - `gemini-3.1-pro-preview`
+- Gemini 3.1 Flash-Lite - `gemini-3.1-flash-lite-preview`
 
 > [!NOTE]
-> Note that **Gemini 2.5 Pro** and **Gemini 3** models takes longer and costs more to generate a commit. But if you have a huge set of changes (huge commit), it works best.
+> Note that **Gemini 2.5 Pro** and **Gemini 3.1 Pro** models take longer and cost more to generate a commit. But if you have a huge set of changes (huge commit), they work best.
 
 <br />
 
