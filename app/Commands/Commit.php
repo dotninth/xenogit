@@ -188,8 +188,9 @@ class Commit extends Command
         $model = $this->model ?: GeminiModels::GEMINI_25_FLASH_LITE;
 
         $valid = match ($model) {
-            GeminiModels::GEMINI_30_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
-            GeminiModels::GEMINI_30_PRO => ['LOW', 'HIGH'],
+            GeminiModels::GEMINI_3_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            GeminiModels::GEMINI_31_PRO => ['LOW', 'MEDIUM', 'HIGH'],
+            GeminiModels::GEMINI_31_FLASH_LITE => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
             default => throw new Exception('Thinking mode is only supported for Gemini 3 models!'),
         };
 
