@@ -9,7 +9,8 @@ enum GeminiModels: string
     case GEMINI_25_PRO = 'gemini-2.5-pro';
     case GEMINI_3_FLASH = 'gemini-3-flash-preview';
     case GEMINI_31_PRO = 'gemini-3.1-pro-preview';
-    case GEMINI_31_FLASH_LITE = 'gemini-3.1-flash-lite-preview';
+    case GEMINI_31_FLASH_LITE = 'gemini-3.1-flash-lite';
+    case GEMINI_35_FLASH = 'gemini-3.5-flash';
 
     /**
      * Get all cases without version suffix.

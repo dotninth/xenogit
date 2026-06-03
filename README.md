@@ -16,7 +16,7 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/v2.5.0-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
+    <img src="https://img.shields.io/badge/v2.6.0-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
     <img src="https://img.shields.io/badge/8.2-php_version?style=for-the-badge&color=89dceb&labelColor=302D41&label=php" alt="PHP Version">
     <img src="https://img.shields.io/badge/MIT-license?style=for-the-badge&color=cba6f7&labelColor=302D41&label=license" alt="MIT License">
 </h4>
@@ -53,7 +53,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v2.5.0
+  Xenogit  v2.6.0
 
   USAGE:  <command> [options] [arguments]
 
@@ -96,7 +96,8 @@ You can use the following models from Google with the `-m` flag:
 - Gemini 2.5 Pro - `gemini-2.5-pro`
 - Gemini 3 Flash - `gemini-3-flash-preview`
 - Gemini 3.1 Pro - `gemini-3.1-pro-preview`
-- Gemini 3.1 Flash-Lite - `gemini-3.1-flash-lite-preview`
+- Gemini 3.1 Flash-Lite - `gemini-3.1-flash-lite`
+- Gemini 3.5 Flash - `gemini-3.5-flash`
 
 > [!NOTE]
 > Note that **Gemini 2.5 Pro** and **Gemini 3.1 Pro** models take longer and cost more to generate a commit. But if you have a huge set of changes (huge commit), they work best.
