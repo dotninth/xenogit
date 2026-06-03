@@ -6,8 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-06-03
+
 ### Added
-- `Commit command`: Added support for setting the GPT model ID for the OpenAI API.
+- **Gemini 3.5 Flash Support**: Added the new `gemini-3.5-flash` model (`GeminiModels::GEMINI_35_FLASH`).
+- **Encapsulated Thinking Levels**: Added a `supportedThinkingLevels()` method directly inside the `GeminiModels` enum to cleanly manage supported levels per model.
+- **Smart Default Thinking Option**: Fallback to the first supported thinking level for Gemini models if the `--thinking` option is active but no specific level is provided.
+
+### Changed
+- **Pure Plain Text Prompts**: Updated prompt guidelines in `Prompt.php` to strictly require pure plain-text output (forbidding any Markdown formatting, backticks, asterisks, bold text, or code blocks) and instructed the model to focus on the most significant change when multiple unrelated files/diffs are modified.
+- **Centralized Default Model**: Defined `GeminiModels::DEFAULT_MODEL` (`gemini-2.5-flash-lite`) to standardize the default fallback across the application (`Commit.php` and `GoogleGemini.php`).
+- **Simplified Token Estimation**: Refactored `getDefaultMaxTokens()` in `GoogleGemini.php` to dynamically check if a model supports thinking levels (or is `GEMINI_25_PRO`) to return `65536` max tokens, avoiding hardcoded model lists.
+- **Thinking Mode Validation Refactoring**: Cleaned up the `getThinking()` method in the `Commit` command by delegating supported thinking configurations directly to the `GeminiModels` enum.
+- **Stable Model Identifiers**: Promoted `GeminiModels::GEMINI_31_FLASH_LITE` from preview (`gemini-3.1-flash-lite-preview`) to stable (`gemini-3.1-flash-lite`).
+- **Binary Rebuild**: Recompiled and updated the distributed binary build at `builds/xenogit`.
 
 ## [1.2.0] - 2023-08-07
 
