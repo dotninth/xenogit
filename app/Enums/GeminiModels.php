@@ -13,6 +13,22 @@ enum GeminiModels: string
     case GEMINI_35_FLASH = 'gemini-3.5-flash';
 
     /**
+     * Get the supported thinking levels for the model.
+     *
+     * @return array<string> Supported thinking levels.
+     */
+    public function supportedThinkingLevels(): array
+    {
+        return match ($this) {
+            self::GEMINI_3_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_31_PRO => ['LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_31_FLASH_LITE => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_35_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            default => [],
+        };
+    }
+
+    /**
      * Get all cases without version suffix.
      *
      * @return array<string> All cases without version suffix.

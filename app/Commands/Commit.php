@@ -179,20 +179,18 @@ class Commit extends Command
     private function getThinking(): ?string
     {
         $thinking = $this->option('thinking');
+        $model = $this->model ?: GeminiModels::GEMINI_25_FLASH_LITE;
+        $valid = $model->supportedThinkingLevels();
 
         if ($thinking === null) {
-            return null;
+            return ! empty($valid) ? $valid[0] : null;
         }
 
         $thinking = strtoupper($thinking);
-        $model = $this->model ?: GeminiModels::GEMINI_25_FLASH_LITE;
 
-        $valid = match ($model) {
-            GeminiModels::GEMINI_3_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
-            GeminiModels::GEMINI_31_PRO => ['LOW', 'MEDIUM', 'HIGH'],
-            GeminiModels::GEMINI_31_FLASH_LITE => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
-            default => throw new Exception('Thinking mode is only supported for Gemini 3 models!'),
-        };
+        if (empty($valid)) {
+            throw new Exception('Thinking mode is only supported for Gemini 3 models!');
+        }
 
         if (! in_array($thinking, $valid)) {
             throw new Exception("Invalid thinking level for {$model->value}! Supported: " . implode(', ', $valid));
