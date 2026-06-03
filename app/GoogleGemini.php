@@ -141,13 +141,10 @@ class GoogleGemini
      */
     protected function getDefaultMaxTokens(): int
     {
-        return match ($this->model) {
-            GeminiModels::GEMINI_25_PRO,
-            GeminiModels::GEMINI_3_FLASH,
-            GeminiModels::GEMINI_31_PRO,
-            GeminiModels::GEMINI_31_FLASH_LITE,
-            GeminiModels::GEMINI_35_FLASH => 65536,
-            default => 100,
-        };
+        if ($this->model === GeminiModels::GEMINI_25_PRO || ! empty($this->model->supportedThinkingLevels())) {
+            return 65536;
+        }
+
+        return 100;
     }
 }
