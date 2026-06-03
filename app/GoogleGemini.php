@@ -22,7 +22,7 @@ class GoogleGemini
      * ID of the supported model to use.
      *
      *
-     * @default GEMINI_20_FLASH
+     * @default GEMINI_25_FLASH_LITE
      */
     protected ?GeminiModels $model;
 
@@ -63,7 +63,7 @@ class GoogleGemini
         ?string $thinking = null
     ) {
         $this->apiKey = $apiKey;
-        $this->model = $model ?: GeminiModels::GEMINI_25_FLASH_LITE;
+        $this->model = $model ?: GeminiModels::DEFAULT_MODEL;
         $this->temperature = $temperature ?: 0.3;
         $this->maxTokens = $maxTokens ?: $this->getDefaultMaxTokens();
         $this->thinking = $thinking;

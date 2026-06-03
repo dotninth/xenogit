@@ -4,6 +4,8 @@ namespace App\Enums;
 
 enum GeminiModels: string
 {
+    public const DEFAULT_MODEL = self::GEMINI_25_FLASH_LITE;
+
     case GEMINI_25_FLASH = 'gemini-2.5-flash';
     case GEMINI_25_FLASH_LITE = 'gemini-2.5-flash-lite';
     case GEMINI_25_PRO = 'gemini-2.5-pro';

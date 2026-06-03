@@ -179,7 +179,7 @@ class Commit extends Command
     private function getThinking(): ?string
     {
         $thinking = $this->option('thinking');
-        $model = $this->model ?: GeminiModels::GEMINI_25_FLASH_LITE;
+        $model = $this->model ?: GeminiModels::DEFAULT_MODEL;
         $valid = $model->supportedThinkingLevels();
 
         if ($thinking === null) {
