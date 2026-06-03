@@ -145,7 +145,8 @@ class GoogleGemini
             GeminiModels::GEMINI_25_PRO,
             GeminiModels::GEMINI_3_FLASH,
             GeminiModels::GEMINI_31_PRO,
-            GeminiModels::GEMINI_31_FLASH_LITE => 65536,
+            GeminiModels::GEMINI_31_FLASH_LITE,
+            GeminiModels::GEMINI_35_FLASH => 65536,
             default => 100,
         };
     }
