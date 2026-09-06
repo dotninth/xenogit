@@ -72,7 +72,7 @@ Usage:
   commit [options]
 
 Options:
-  -m, --model[=MODEL]              Set the ID of the model to use (optional). Default: gemini-2.5-flash-lite
+  -m, --model[=MODEL]              Set the ID of the model to use (optional). Default: gemini-3.1-flash-lite
   -t, --temperature[=TEMPERATURE]  Set the temperature (optional). Default: 0
   -k, --tokens[=TOKENS]            Set the maximum number of tokens to use (optional). Default: 100
       --thinking[=THINKING]        Set the thinking level for Gemini 3 models (optional)

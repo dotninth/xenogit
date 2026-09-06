@@ -15,7 +15,7 @@ enum GeminiModels: string
     case GEMINI_36_FLASH = 'gemini-3.6-flash';
     case GEMINI_37_FLASH = 'gemini-3.7-flash';
     case GEMINI_38_FLASH = 'gemini-3.8-flash';
-    public const DEFAULT_MODEL = self::GEMINI_25_FLASH_LITE;
+    public const DEFAULT_MODEL = self::GEMINI_31_FLASH_LITE;
 
     /**
      * Get all cases without version suffix.

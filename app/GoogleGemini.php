@@ -50,7 +50,7 @@ class GoogleGemini
      * Constructor for the class.
      *
      * @param  string  $apiKey  the API key
-     * @param  GeminiModels|null  $model  the model to use (default: GEMINI_25_FLASH_LITE)
+     * @param  GeminiModels|null  $model  the model to use (default: GEMINI_31_FLASH_LITE)
      * @param  float|null  $temperature  the temperature (default: 0.3)
      * @param  int|null  $maxTokens  the maximum number of tokens (default: 100)
      * @param  string|null  $thinking  the thinking level (default: null)

@@ -44,7 +44,7 @@ class Commit extends Command
      * @var string
      */
     protected $signature = 'commit
-                            {--m|model= : Set the ID of the model to use (optional). Default: gemini-2.5-flash-lite}
+                            {--m|model= : Set the ID of the model to use (optional). Default: gemini-3.1-flash-lite}
                             {--t|temperature= : Set the temperature (optional). Default: 0.3}
                             {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 100}
                             {--thinking= : Set the thinking level for Gemini 3 models (optional)}';
