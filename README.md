@@ -16,7 +16,7 @@
 </p>
 
 <h4 align="center">
-    <img src="https://img.shields.io/badge/v2.6.0-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
+    <img src="https://img.shields.io/badge/v2.7.0-stable?style=for-the-badge&color=C9CBFF&labelColor=302D41&label=stable" alt="Latest Stable Version">
     <img src="https://img.shields.io/badge/8.2-php_version?style=for-the-badge&color=89dceb&labelColor=302D41&label=php" alt="PHP Version">
     <img src="https://img.shields.io/badge/MIT-license?style=for-the-badge&color=cba6f7&labelColor=302D41&label=license" alt="MIT License">
 </h4>
@@ -53,7 +53,7 @@ After installing Xenogit, you can all available options by simply launcing the p
 ```shell
 $ xenogit
 
-  Xenogit  v2.6.0
+  Xenogit  v2.7.0
 
   USAGE:  <command> [options] [arguments]
 
