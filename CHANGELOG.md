@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **New Gemini Model Support**: Added `gemini-3.5.flash-lite`, `gemini-3.6-flash`, `gemini-3.7-flash`, and `gemini-3.8-flash`.
+
 ## [2.6.0] - 2026-06-03
 
 ### Added

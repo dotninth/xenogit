@@ -4,8 +4,6 @@ namespace App\Enums;
 
 enum GeminiModels: string
 {
-    public const DEFAULT_MODEL = self::GEMINI_25_FLASH_LITE;
-
     case GEMINI_25_FLASH = 'gemini-2.5-flash';
     case GEMINI_25_FLASH_LITE = 'gemini-2.5-flash-lite';
     case GEMINI_25_PRO = 'gemini-2.5-pro';
@@ -13,22 +11,11 @@ enum GeminiModels: string
     case GEMINI_31_PRO = 'gemini-3.1-pro-preview';
     case GEMINI_31_FLASH_LITE = 'gemini-3.1-flash-lite';
     case GEMINI_35_FLASH = 'gemini-3.5-flash';
-
-    /**
-     * Get the supported thinking levels for the model.
-     *
-     * @return array<string> Supported thinking levels.
-     */
-    public function supportedThinkingLevels(): array
-    {
-        return match ($this) {
-            self::GEMINI_3_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
-            self::GEMINI_31_PRO => ['LOW', 'MEDIUM', 'HIGH'],
-            self::GEMINI_31_FLASH_LITE => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
-            self::GEMINI_35_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
-            default => [],
-        };
-    }
+    case GEMINI_35_FLASH_LITE = 'gemini-3.5-flash-lite';
+    case GEMINI_36_FLASH = 'gemini-3.6-flash';
+    case GEMINI_37_FLASH = 'gemini-3.7-flash';
+    case GEMINI_38_FLASH = 'gemini-3.8-flash';
+    public const DEFAULT_MODEL = self::GEMINI_25_FLASH_LITE;
 
     /**
      * Get all cases without version suffix.
@@ -59,5 +46,25 @@ enum GeminiModels: string
         }
 
         return null;
+    }
+
+    /**
+     * Get the supported thinking levels for the model.
+     *
+     * @return array<string> Supported thinking levels.
+     */
+    public function supportedThinkingLevels(): array
+    {
+        return match ($this) {
+            self::GEMINI_3_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_31_PRO => ['LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_31_FLASH_LITE => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_35_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_35_FLASH_LITE => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_36_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_37_FLASH => ['LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_38_FLASH => ['LOW', 'MEDIUM', 'HIGH'],
+            default => [],
+        };
     }
 }

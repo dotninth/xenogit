@@ -98,6 +98,10 @@ You can use the following models from Google with the `-m` flag:
 - Gemini 3.1 Pro - `gemini-3.1-pro-preview`
 - Gemini 3.1 Flash-Lite - `gemini-3.1-flash-lite`
 - Gemini 3.5 Flash - `gemini-3.5-flash`
+- Gemini 3.5 Flash Lite - `gemini-3.5-flash-lite`
+- Gemini 3.6 Flash - `gemini-3.6-flash`
+- Gemini 3.7 Flash - `gemini-3.7-flash`
+- Gemini 3.8 Flash - `gemini-3.8-flash`
 
 > [!NOTE]
 > Note that **Gemini 2.5 Pro** and **Gemini 3.1 Pro** models take longer and cost more to generate a commit. But if you have a huge set of changes (huge commit), they work best.
