@@ -15,6 +15,11 @@ enum GeminiModels: string
     case GEMINI_36_FLASH = 'gemini-3.6-flash';
     case GEMINI_37_FLASH = 'gemini-3.7-flash';
     case GEMINI_38_FLASH = 'gemini-3.8-flash';
+    case GEMINI_4_CARBON = 'gemini-4-carbon';
+    case GEMINI_4_NEON = 'gemini-4-neon';
+    case GEMINI_4_HYDROGEN = 'gemini-4-hydrogen';
+    case GEMINI_4_ARGON = 'gemini-4-argon';
+
     public const DEFAULT_MODEL = self::GEMINI_31_FLASH_LITE;
 
     /**
@@ -40,12 +45,17 @@ enum GeminiModels: string
     {
         foreach (self::cases() as $case) {
             // Match exact value or value with version suffix
-            if ($case->value === $value || str_starts_with($case->value, "{$value}-")) {
+            if ($case->value === $value || (! $case->isGemini4() && str_starts_with($case->value, "{$value}-"))) {
                 return $case;
             }
         }
 
         return null;
+    }
+
+    public function isGemini4(): bool
+    {
+        return str_starts_with($this->value, 'gemini-4-');
     }
 
     /**
@@ -64,6 +74,8 @@ enum GeminiModels: string
             self::GEMINI_36_FLASH => ['MINIMAL', 'LOW', 'MEDIUM', 'HIGH'],
             self::GEMINI_37_FLASH => ['LOW', 'MEDIUM', 'HIGH'],
             self::GEMINI_38_FLASH => ['LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_4_CARBON, self::GEMINI_4_ARGON => ['LOW', 'MEDIUM', 'HIGH'],
+            self::GEMINI_4_NEON, self::GEMINI_4_HYDROGEN => ['LOW', 'MEDIUM', 'HIGH', 'XHIGH'],
             default => [],
         };
     }

@@ -42,7 +42,7 @@ class GoogleGemini
     protected ?int $maxTokens;
 
     /**
-     * The thinking level for Gemini 3 models.
+     * The selected thinking level.
      */
     protected ?string $thinking;
 
@@ -120,10 +120,13 @@ class GoogleGemini
         }
 
         $data['generationConfig'] = [
-            'temperature' => $this->temperature,
             'maxOutputTokens' => $this->maxTokens,
             'responseMimeType' => 'text/plain',
         ];
+
+        if (! $this->model->isGemini4()) {
+            $data['generationConfig']['temperature'] = $this->temperature;
+        }
 
         if ($this->thinking) {
             $data['generationConfig']['thinkingConfig'] = [
@@ -141,6 +144,10 @@ class GoogleGemini
      */
     protected function getDefaultMaxTokens(): int
     {
+        if (in_array($this->model, [GeminiModels::GEMINI_4_CARBON, GeminiModels::GEMINI_4_ARGON], true)) {
+            return 32768;
+        }
+
         if ($this->model === GeminiModels::GEMINI_25_PRO || ! empty($this->model->supportedThinkingLevels())) {
             return 65536;
         }

@@ -44,10 +44,10 @@ class Commit extends Command
      * @var string
      */
     protected $signature = 'commit
-                            {--m|model= : Set the ID of the model to use (optional). Default: gemini-3.1-flash-lite}
-                            {--t|temperature= : Set the temperature (optional). Default: 0.3}
-                            {--k|tokens= : Set the maximum number of tokens to use (optional). Default: 100}
-                            {--thinking= : Set the thinking level for Gemini 3 models (optional)}';
+                            {--m|model= : Model ID. Default: gemini-3.1-flash-lite. Gemini 4: gemini-4-carbon, gemini-4-argon, gemini-4-neon, gemini-4-hydrogen}
+                            {--t|temperature= : Sampling temperature. Default: 0.3. Not supported on Gemini 4}
+                            {--k|tokens= : Max output tokens. Defaults: 32768 for Carbon/Argon, 65536 for Neon/Hydrogen; 100 or 65536 for older models}
+                            {--thinking= : Model-specific thinking level. Gemini 4: LOW (default), MEDIUM, HIGH; Neon/Hydrogen also accept XHIGH}';
 
     /**
      * The description of the command.
@@ -73,7 +73,7 @@ class Commit extends Command
     protected ?int $maxTokens;
 
     /**
-     * The thinking level for Gemini 3 models.
+     * The selected thinking level.
      */
     protected ?string $thinking;
 
@@ -131,6 +131,10 @@ class Commit extends Command
     private function getTemperature(): ?float
     {
         $temperatureOption = $this->option('temperature');
+
+        if ($this->model?->isGemini4() && ($temperatureOption !== null || $this->input->hasParameterOption(['--temperature', '-t'], true))) {
+            throw new Exception("--temperature is not supported for {$this->model->value}!");
+        }
 
         if ($temperatureOption === null) {
             return null;

@@ -86,7 +86,18 @@ Xenogit accepts these model IDs for `--model`:
 - `gemini-3.7-flash`
 - `gemini-3.8-flash`
 
-See [`GeminiModels.php`](app/Enums/GeminiModels.php) for the thinking levels each model accepts.
+Gemini 4 models:
+
+| Model ID            | `--thinking` levels              | Default `--tokens` |
+| ------------------- | -------------------------------- | -----------------: |
+| `gemini-4-carbon`   | `LOW`, `MEDIUM`, `HIGH`          |             32,768 |
+| `gemini-4-argon`    | `LOW`, `MEDIUM`, `HIGH`          |             32,768 |
+| `gemini-4-neon`     | `LOW`, `MEDIUM`, `HIGH`, `XHIGH` |             65,536 |
+| `gemini-4-hydrogen` | `LOW`, `MEDIUM`, `HIGH`, `XHIGH` |             65,536 |
+
+Gemini 4 defaults to `LOW` thinking and does not support `--temperature`. Thinking level names are case-insensitive. Pass `--tokens` to override the model's default output token budget.
+
+Older models still use a temperature of 0.3 by default. Gemini 2.5 Flash and Flash-Lite default to 100 output tokens; the other older models default to 65,536. See [`GeminiModels.php`](app/Enums/GeminiModels.php) for their supported thinking levels.
 
 <br>
 
