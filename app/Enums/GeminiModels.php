@@ -23,9 +23,9 @@ enum GeminiModels: string
     public const DEFAULT_MODEL = self::GEMINI_31_FLASH_LITE;
 
     /**
-     * Get all cases without version suffix.
+     * Lists CLI model IDs after stripping suffixes of the form `-word-NN-NN`.
      *
-     * @return array<string> All cases without version suffix.
+     * @return list<string> The model IDs in enum declaration order.
      */
     public static function casesForCli(): array
     {
@@ -36,10 +36,10 @@ enum GeminiModels: string
     }
 
     /**
-     * Try to create a GeminiModels from a CLI flag value.
+     * Matches a CLI model ID. Older models also accept prefixes that end at a hyphen boundary.
      *
-     * @param  string  $value  CLI flag value.
-     * @return GeminiModels|null GeminiModels or null if not found.
+     * @param  string  $value  The model ID supplied to `--model`.
+     * @return self|null The first matching model in declaration order, or null if none matches.
      */
     public static function tryFromCliFlag(string $value): ?self
     {
@@ -53,15 +53,20 @@ enum GeminiModels: string
         return null;
     }
 
+    /**
+     * Checks the model ID for the `gemini-4-` prefix.
+     *
+     * @return bool Whether the model is in the Gemini 4 family.
+     */
     public function isGemini4(): bool
     {
         return str_starts_with($this->value, 'gemini-4-');
     }
 
     /**
-     * Get the supported thinking levels for the model.
+     * Lists the model's supported thinking levels, with the CLI default first.
      *
-     * @return array<string> Supported thinking levels.
+     * @return list<string> The uppercase thinking levels, or an empty list if the model has none.
      */
     public function supportedThinkingLevels(): array
     {

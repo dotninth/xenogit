@@ -45,6 +45,14 @@ class Prompt
         - **Do not explain or assume why the change was made, just write what change was made.**
     EOD;
 
+    /**
+     * Builds the Gemini prompt from the commit message instructions and the staged Git diff.
+     *
+     * @return array{array{role: 'system', content: string}, array{role: 'user', content: string}} The instructions followed by the staged diff.
+     *
+     * @throws ProcessFailedException If the Git diff command fails.
+     * @throws Exception If the diff is empty.
+     */
     public static function getPrompt(): array
     {
         return [
@@ -60,12 +68,12 @@ class Prompt
     }
 
     /**
-     * Retrieves the git diff of the staged changes.
+     * Runs `git diff --staged` in the current working directory.
      *
-     * @return string the git diff output
+     * @return string The staged diff from standard output.
      *
-     * @throws ProcessFailedException if the git diff command fails
-     * @throws \Exception if there are no staged changes
+     * @throws ProcessFailedException If the Git diff command fails.
+     * @throws Exception If the diff is empty.
      */
     private static function getGitDiff(): string
     {

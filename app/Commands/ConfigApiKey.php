@@ -23,7 +23,9 @@ class ConfigApiKey extends Command
     protected $description = 'Configure the API key in the .env file';
 
     /**
-     * Handles the logic for the command.
+     * Appends the supplied `API_KEY` entry to the `.env` beside the running PHAR. Creates the file if it does not exist.
+     *
+     * @return void
      */
     public function handle()
     {

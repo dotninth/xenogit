@@ -7,7 +7,9 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Runs during application boot. This provider performs no boot work.
+     *
+     * @return void
      */
     public function boot(): void
     {
@@ -15,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any application services.
+     * Runs during provider registration. This provider registers no services.
+     *
+     * @return void
      */
     public function register(): void
     {

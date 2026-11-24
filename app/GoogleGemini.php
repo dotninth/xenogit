@@ -19,41 +19,41 @@ class GoogleGemini
     protected $apiKey;
 
     /**
-     * ID of the supported model to use.
+     * The model used in the request URL and to choose generation settings.
      *
-     *
-     * @default GEMINI_25_FLASH_LITE
+     * @var GeminiModels|null
      */
     protected ?GeminiModels $model;
 
     /**
-     * The temperature parameter.
+     * The sampling temperature. Requests for Gemini 4 omit this setting.
      *
-     *
-     * @default 0
+     * @var float|null
      */
     protected ?float $temperature;
 
     /**
-     * The maximum number of tokens to generate in the completion.
+     * The output token limit sent in the generation settings.
      *
-     * @default 50
+     * @var int|null
      */
     protected ?int $maxTokens;
 
     /**
-     * The selected thinking level.
+     * The thinking level sent to Gemini, or null to omit the thinking configuration.
+     *
+     * @var string|null
      */
     protected ?string $thinking;
 
     /**
-     * Constructor for the class.
+     * Stores credentials and generation settings. Resolves model-specific defaults before any request.
      *
-     * @param  string  $apiKey  the API key
-     * @param  GeminiModels|null  $model  the model to use (default: GEMINI_31_FLASH_LITE)
-     * @param  float|null  $temperature  the temperature (default: 0.3)
-     * @param  int|null  $maxTokens  the maximum number of tokens (default: 100)
-     * @param  string|null  $thinking  the thinking level (default: null)
+     * @param  string  $apiKey  The Gemini API key used to authenticate requests.
+     * @param  GeminiModels|null  $model  The model to call, or null to use `GeminiModels::DEFAULT_MODEL`.
+     * @param  float|null  $temperature  The sampling temperature. Zero or null uses 0.3.
+     * @param  int|null  $maxTokens  The output token limit. Zero or null uses the model's default.
+     * @param  string|null  $thinking  The thinking level to send, or null to omit it.
      */
     public function __construct(
         string $apiKey,
@@ -70,12 +70,13 @@ class GoogleGemini
     }
 
     /**
-     * Sends a POST request to the Google Gemini API to generate new content.
+     * Posts the prompt to Gemini with a 180-second request timeout.
      *
-     * @param  array  $messages  the array of messages to be completed
-     * @return string the completed message content
+     * @param  array<array{role: string, content: string}>  $messages  The system instructions and user prompt to send.
+     * @return string The first text part of the first candidate, or an empty string if the field is absent.
      *
-     * @throws Exception if an error occurs during the HTTP request
+     * @throws \Illuminate\Http\Client\ConnectionException If the request cannot connect or times out.
+     * @throws \Illuminate\Http\Client\RequestException If Gemini responds with a client or server error.
      */
     public function generate(array $messages): string
     {
@@ -96,10 +97,19 @@ class GoogleGemini
     }
 
     /**
-     * Prepares the data for the given messages.
+     * Builds the JSON request data. Uses the last `system` and `user` messages and ignores other roles.
      *
-     * @param  array  $messages  the array of messages
-     * @return array the prepared data
+     * @param  array<array{role: string, content: string}>  $messages  The system instructions and user prompt.
+     * @return array{
+     *     system_instruction?: array{parts: list<array{text: string}>},
+     *     contents?: list<array{parts: list<array{text: string}>}>,
+     *     generationConfig: array{
+     *         maxOutputTokens: int|null,
+     *         responseMimeType: 'text/plain',
+     *         temperature?: float|null,
+     *         thinkingConfig?: array{thinkingLevel: string}
+     *     }
+     * } The generation settings and any system instructions or user content.
      */
     protected function prepareData(array $messages): array
     {
@@ -138,9 +148,9 @@ class GoogleGemini
     }
 
     /**
-     * Returns the default value for the maximum number of tokens.
+     * Chooses the default output token limit for the configured model.
      *
-     * @return int the default value for the maximum number of tokens
+     * @return int 32,768 for Carbon and Argon, 65,536 for Gemini 2.5 Pro and models with thinking levels other than Carbon and Argon, or 100 otherwise.
      */
     protected function getDefaultMaxTokens(): int
     {
