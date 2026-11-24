@@ -9,6 +9,8 @@
 
 Xenogit sends your staged Git diff to Google Gemini to draft a one-line commit message. You can edit the message, ask for another draft, or cancel without committing.
 
+<br>
+
 ## Install Xenogit
 
 You need Git and PHP 8.2 or later with the Phar and zlib extensions.
@@ -25,6 +27,8 @@ If you don't use Composer, download `xenogit` from the [latest GitHub release](h
 
 Check the installation with `xenogit --version`.
 
+<br>
+
 ## Set your Gemini API key
 
 Get a [Gemini API key from Google AI Studio](https://aistudio.google.com/apikey) and set the `API_KEY` environment variable.
@@ -38,6 +42,8 @@ API_KEY=YOUR_API_KEY
 ```
 
 To have Xenogit write the file, see `xenogit help config:api-key`. The command appends a line. To replace a saved key, edit the existing `API_KEY` line in `.env`. Keep `.env` out of version control.
+
+<br>
 
 ## Commit your staged changes
 
@@ -55,6 +61,8 @@ Review [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing) and [
 5. At **Do you accept this commit message?**, choose **Yes** to run `git commit` or **No** to cancel.
 
 Run `xenogit` to list the commands. Run `xenogit help commit` to see the options for `commit`.
+
+<br>
 
 ## Use a different model
 
@@ -80,12 +88,16 @@ Xenogit accepts these model IDs for `--model`:
 
 See [`GeminiModels.php`](app/Enums/GeminiModels.php) for the thinking levels each model accepts.
 
+<br>
+
 ## Contribute a change
 
 1. Fork and clone the repository, then create a branch for your change.
 2. Run `composer install` in the clone.
 3. Follow the [project conventions](CONVENTIONS.md) and run the unit tests with `vendor/bin/pest --testsuite=Unit`.
 4. Push your branch to your fork and open a pull request against `main`. Describe what changed and how you tested it.
+
+<br>
 
 ## License
 
